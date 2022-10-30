@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useEffect, useReducer } from "react";
 import MyTickets from './MyTickets';
 import NewTicket from './NewTicket';
 import TicketDetails from './TicketDetails';
@@ -11,6 +11,8 @@ import Container from '@mui/material/Container';
 import NavBar from './NavBar';
 import { Routes, Route } from "react-router-dom";
 import Header from "./Header";
+import { StateContext } from "../utils/StateContext"
+import reducer from "../utils/StateReducer";
 
 const sections = [
   {
@@ -24,7 +26,28 @@ const sections = [
   }
 ]
 function App() {
+  const initialState = {
+    tickets: [],
+    loggedInUser: null,
+    auth: null,
+  };
+  const [store, dispatch] = useReducer(reducer, initialState);
+  const { loggedInUser } = store;
+
+  useEffect(() => {
+    if (!loggedInUser){
+      return;
+    }
+
+    getTickets()
+      .then((tickets) =>
+        dispatch({ type: "setTickets", data: tickets })
+      )
+      .catch((error) => console.log(error));
+  },[])
+
   return (
+    <StateContext.Provider value={{ store, dispatch }}>
     <div className="App">
         <Header />
         <Container maxWidth='lg'>
@@ -52,6 +75,7 @@ function App() {
        
       
     </div>
+    </StateContext.Provider>
   );
 }
 

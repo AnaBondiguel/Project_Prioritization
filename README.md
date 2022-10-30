@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# R1. Description of your website, including:
+### Purpose
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The purpose of this project management application is to collect and track ideas from employees and prioritise their projects to improve team productivity. The Teams and Subscriptions Marketing (TSM) team is responsible for building marketing landing pages for Business to Business (B2B) at Canva. The current problem that they face is their manual process for project prioritisation. 
 
-## Available Scripts
+The TSM team constantly gets a lot of requests from other teams globally across Canva to create, update or localise (translate to different languages) landing or existing pages. Every season (3 months period) they have to build a roadmap of all the things that they want to work on which is a complicated process as they always have more work than the team can handle and it’s not always clear what is the most important for Canva. The consequence of this unclear path is that their process of prioritisation of projects can be very chaotic. The team has to figure out how to use their limited time to work on the most important projects that will make a big impact for the company. At the same time, they also have to demonstrate their roadmap to leadership to make sure it’s aligned with the overall strategy of the company. 
 
-In the project directory, you can run:
+Our project management application will help the TSM team to collect ideas from various people at Canva and add relevant context/additional information to each idea. The application will also automatically calculate the ICE score that is required by the managers for their decision-making process, and finally send back the manager’s feedback to users to review their projects. This application will let users free from those manual spreadsheets and improve their productivity. 
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Functionality / features
+Our application will have the following functionality / features:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Enable users to register to the application (authentication)
 
-### `npm test`
+Allow users to submit their ideas 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Allow users to add, edit, and delete their ideas (authorisation)
 
-### `npm run build`
+Automate calculate ICE score 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Enable users to view managers’ feedback
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Target audience
+Our target audience is all the employees in Canva.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Tech stack
+MERN full stack app: 
 
-### `npm run eject`
+Front-end: React interacts with users 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Back-end: Express handles routes and HTTP requests and responses 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Database: MongoDB processes and stores database
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Styling framework: Material UI, CSS
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Deployment: Netlify for front-end, Heroku for back-end
 
-## Learn More
+# R4. User Stories
+As Francois, Head of Growth Growth Marketing B2B, I want to have a tool to calculate ICE score automatically, so I can use these scores for my decision-making process.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+As Yel, Software Engineer, I want to communicate my project ideas to my team, so I need to fill a form and submit it to my team/manager. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+As Jessie, Digital Designer, I want to be able to add, edit, and delete my ideas after I submit them, so I can feel free to make any changes in my project design later on. 
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+As Lochy, Software Engineer, I want to be able to view and respond to my manager’s feedback, so I can solve my problems as soon as possible. 
