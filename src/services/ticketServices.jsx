@@ -1,7 +1,9 @@
-
+const tickets = [
+    {id: 1, initiative: "Whiteboard on Pricing LP", description: "Add whiteboard icon to the pricing page", target: "Team", type:"I", impact: "Medium", confidence: "Large", effort: "small", ICE_Score:"24",  priority:"1"},
+]
 
 function transformTicket(ticket) {
-    let transformedTicket = {
+    return {
         author: ticket.username, 
         initiative: ticket.initiative,
         description: ticket.description,
@@ -15,10 +17,23 @@ function transformTicket(ticket) {
         priority: ticket.priority,
         feedback: ticket.feedback
     }
-    return transformedTicket;
 }
 
 export async function getTickets() {
-    const response = await projectAPI.get('/api/tickets');
-    return response.data;
+  
+    return tickets;
+}
+
+export async function createTicket(ticket) {
+	
+    return ticket;
+}
+
+export async function deleteTicket(id) {
+
+    return id;
+}
+
+export async function updateTicket(ticket) {
+     return ticket;
 }

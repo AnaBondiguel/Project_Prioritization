@@ -13,6 +13,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./Header";
 import { StateContext } from "../utils/StateContext"
 import reducer from "../utils/StateReducer";
+import { getTickets } from "../services/ticketServices";
 
 const sections = [
   {
@@ -25,6 +26,7 @@ const sections = [
     title: "Listings", url:"listings"
   }
 ]
+
 function App() {
   const initialState = {
     tickets: [],
@@ -44,7 +46,7 @@ function App() {
         dispatch({ type: "setTickets", data: tickets })
       )
       .catch((error) => console.log(error));
-  },[])
+  },[loggedInUser])
 
   return (
     <StateContext.Provider value={{ store, dispatch }}>
@@ -67,12 +69,6 @@ function App() {
          
           {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
-
-      
-       
-      
-      
-       
       
     </div>
     </StateContext.Provider>
