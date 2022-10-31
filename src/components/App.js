@@ -15,21 +15,22 @@ import { StateContext } from "../utils/StateContext"
 import reducer from "../utils/StateReducer";
 import { getTickets } from "../services/ticketServices";
 
+
 const sections = [
   {
-    title: "My Tickets", url:"mytickets"
+    title: "My Tickets", url:"/mytickets"
   },
   {
-    title: "New Ticket", url:"newticket"
+    title: "New Ticket", url:"/newticket"
   },
   {
-    title: "Listings", url:"listings"
+    title: "Listings", url:"/listings"
   }
 ]
 
 function App() {
   const initialState = {
-    tickets: [],
+    tickets: null,
     loggedInUser: null,
     auth: null,
   };
@@ -58,14 +59,14 @@ function App() {
 
         <Routes>
           <Route path="/" element={<MyTickets />} />
-          <Route path="Mytickets" element={<MyTickets />} />
-          <Route path="Newticket" element={<NewTicket />} />
-          <Route path="Listings" element={<Listings />} />
-          <Route path="Signin" element={<SignIn />} />
-          <Route path="Signup" element={<SignUp />} />
-          <Route path="Searchresults" element={<SearchResults />} />
-          <Route path="Submissionsuccess" element={<SubmissionSuccess />} />
-          <Route path="Ticketdetails" element={<TicketDetails  />} />
+          <Route path="mytickets" element={<MyTickets />} />
+          <Route path="newticket" element={<NewTicket />} />
+          <Route path="listings" element={<Listings />} />
+          <Route path="signin" element={<SignIn />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="searchresults" element={<SearchResults />} />
+          <Route path="submissionsuccess" element={<SubmissionSuccess />} />
+          <Route path="mytickets/:id" element={<TicketDetails  />} />
          
           {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>

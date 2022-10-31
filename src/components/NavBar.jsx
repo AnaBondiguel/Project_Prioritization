@@ -29,7 +29,7 @@ function NavBar(props) {
       >
        <Grid container columnSpacing={{ xs: 3, sm: 4, md: 5 }} justifyContent="center" alignItems="center">
         {sections.map((section) => (
-          <Grid item><Link key={section.title} to={section.url}>{section.title}</Link></Grid> 
+          <Grid item key={section.title}><Link key={section.title} to={section.url}>{section.title}</Link></Grid> 
         ))}
        </Grid>
       </Toolbar>

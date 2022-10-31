@@ -3,7 +3,7 @@ export default function reducer (state, action) {
         case 'setTickets': {
             return {
                 ...state,
-                Tickets: action.data
+                tickets: action.data
             }
         }
         case 'addTickets': {
@@ -13,7 +13,7 @@ export default function reducer (state, action) {
             }
         }
         case 'deleteTickets': {
-            const updatedTickets = state.ticketss.filter((ticket) => {
+            const updatedTickets = state.tickets.filter((ticket) => {
                 return ticket.id !== parseInt(action.data)
             })
             return {
