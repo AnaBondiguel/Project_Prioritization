@@ -14,7 +14,10 @@ import Header from "./Header";
 import { StateContext } from "../utils/StateContext"
 import reducer from "../utils/StateReducer";
 import { getTickets } from "../services/ticketServices";
-
+import { getTargets } from "../services/targetServices";
+import { getImpacts } from "../services/impactServices";
+import { getConfidences } from "../services/confidenceServices";
+import { getEfforts } from "../services/effortServices";
 
 const sections = [
   {
@@ -30,6 +33,9 @@ const sections = [
 
 function App() {
   const initialState = {
+    targets: [],
+    impacts: [],
+    confidences: [],
     tickets: null,
     loggedInUser: null,
     auth: null,
@@ -47,7 +53,34 @@ function App() {
         dispatch({ type: "setTickets", data: tickets })
       )
       .catch((error) => console.log(error));
-  },[loggedInUser])
+
+      getTargets()
+      .then((targets) =>
+        dispatch({ type: "setTargets", data: targets })
+      )
+      .catch((error) => console.log(error));
+
+      getImpacts()
+      .then((impacts) =>
+        dispatch({ type: "setImpacts", data: impacts })
+      )
+      .catch((error) => console.log(error));
+
+      getConfidences()
+      .then((confidences) =>
+        dispatch({ type: "setConfidences", data: confidences })
+      )
+      .catch((error) => console.log(error));
+
+      getEfforts()
+      .then((efforts) =>
+        dispatch({ type: "setEfforts", data: efforts })
+      )
+      .catch((error) => console.log(error));
+
+
+  }, [loggedInUser]);
+
 
   return (
     <StateContext.Provider value={{ store, dispatch }}>

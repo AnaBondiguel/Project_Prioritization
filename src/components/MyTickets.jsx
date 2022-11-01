@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { Typography} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/StateContext";
 import { getTickets } from "../services/ticketServices";
@@ -10,7 +10,7 @@ function MyTickets(){
     let navigate = useNavigate();
     const { store, dispatch } = useGlobalState();
     const { tickets } = store;
-    
+
 // Get the list of tickets
     useEffect(() => {
       // console.log("tickets at top:", tickets)
@@ -33,18 +33,17 @@ function MyTickets(){
             
             {tickets.map((ticket, index) => {
               return (
-                
-                //when we click the link, it will direct us to ticket detail page
+              //when we click the link, it will direct us to ticket detail page 
                 <Link key={ticket.id} to={`/mytickets/${ticket.id}`}>
                   <Typography>
-                    {ticket.initiative}
-                    {ticket.description}
-                    {ticket.target}
-                    {ticket.type}
-                    {ticket.priority}
-                    {ticket.ICE_Score}
+                    Initative: {ticket.initiative}
+                    Description: {ticket.description}
+                    Target: {ticket.target}
+                    Priority: {ticket.priority}
+                    ICE Score: {ticket.ICE_Score}
                   </Typography>
-                </Link>
+                </Link> 
+
               );
               })}
               <button onClick={() => navigate("/mytickets/new")}>Add Ticket</button>
@@ -54,4 +53,7 @@ function MyTickets(){
 }
 
 export default MyTickets;
+
+
+    
 

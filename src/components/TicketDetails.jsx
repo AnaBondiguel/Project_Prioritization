@@ -8,7 +8,7 @@ const TicketDetails = () => {
     const [ticket, setTicket] = useState(null);
     let navigate = useNavigate();
     const { id } = useParams();
-    const { dispatch} = useGlobalState();
+    const { dispatch } = useGlobalState();
 
 //setup onClick for delete button 
     function handleDelete() {

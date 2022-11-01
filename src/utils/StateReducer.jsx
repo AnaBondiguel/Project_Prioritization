@@ -1,5 +1,29 @@
 export default function reducer (state, action) {
     switch(action.type) {
+        case 'setTargets': {
+            return {
+                ...state,
+                targets: action.data
+            }
+        }
+        case 'setImpacts': {
+            return {
+                ...state,
+                impacts: action.data
+            }
+        }
+        case 'setConfidences': {
+            return {
+                ...state,
+                confidences: action.data
+            }
+        }
+        case 'setEfforts': {
+            return {
+                ...state,
+                efforts: action.data
+            }
+        }
         case 'setTickets': {
             return {
                 ...state,
