@@ -30,13 +30,13 @@ export default function reducer (state, action) {
                 tickets: action.data
             }
         }
-        case 'addTickets': {
+        case 'addTicket': {
             return {
                 ...state,
                 tickets: [action.data, ...state.tickets]
             }
         }
-        case 'deleteTickets': {
+        case 'deleteTicket': {
             const updatedTickets = state.tickets.filter((ticket) => {
                 return ticket.id !== parseInt(action.data)
             })

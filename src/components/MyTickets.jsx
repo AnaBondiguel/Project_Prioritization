@@ -46,7 +46,7 @@ function MyTickets(){
 
               );
               })}
-              <button onClick={() => navigate("/mytickets/new")}>Add Ticket</button>
+              <button onClick={() => navigate("/newticket")}>Add Ticket</button>
               </>
         </div>
     );

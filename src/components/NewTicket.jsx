@@ -1,7 +1,14 @@
-import React, { useState } from "react";
-import { Typography, Button} from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Typography, Button, Paper, Select} from "@mui/material";
 import { useGlobalState } from "../utils/StateContext";
 import { useParams, useNavigate } from "react-router-dom";
+import {
+    createTicket,
+    updateTicket,
+    getTicket,
+  } from "../services/ticketServices";
+import FileBase from 'react-file-base64';
+
 
 // import TextField from '@mui/material/TextField';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -18,14 +25,29 @@ function NewTicket(){
         impact_id: 1,
         confidence_id: 1,
         effort_id: 1,
+        selectedFile: "",
       };
-
+    const [formState, setFormState] = useState(initialFormState);
     const { dispatch, store } = useGlobalState();
     const { targets, impacts, confidences, efforts } = store;
-    const [formState, setFormState] = useState(initialFormState);
-
+    
     let { id } = useParams();
     let navigate = useNavigate();
+
+// useEffect(() => {
+//     if (id) {
+//           getTicket(id).then((ticket) => {
+//             const target = targets.find(
+//               (target) =>
+//                 target.name.toLowerCase() === ticket.target.toLowerCase()
+//             );
+//             setFormState({
+//               target_id: target.id,
+//               description: ticket.description,
+//             });
+//           });
+//         }
+//       }, [id, targets]);
 
 function handleChange(event) {
     setFormState({
@@ -36,11 +58,32 @@ function handleChange(event) {
 
 function handleClick(event) {
         event.preventDefault();
+    //if statement to handle update ticket and create ticket
+        if (id) {
+            updateTicket({ id: id, ...formState })
+              .then(() => {
+                dispatch({
+                  type: "updateTicket",
+                  data: { id: id, ...formState },
+                });
+    //if user update ticket with form, leave ticket to show on the page.
+                navigate(`/mytickets/${id}`);
+              })
+              .catch((error) => console.log(error));
+          } else {
+            createTicket({ ...formState })
+              .then((ticket) => {
+                dispatch({ type: "addTicket", data: ticket });
+    //we can navigate back to the my tickets page once we create a ticket.
+                navigate("/mytickets");
+              })
+              .catch((error) => console.log(error));
+          }
 }
 
     return (
-      
-            <div>
+        <Paper elevation={3}>
+            <form>
                 <h1>New Ticket</h1>
                     <Typography>Initiative:</Typography>
                         <input type="text" name="initiative" value={formState.initiative} onChange={handleChange}></input>
@@ -49,24 +92,24 @@ function handleClick(event) {
                         <textarea type="text" name="description" value={formState.description} onChange={handleChange}></textarea>
 
                     <Typography>Target:</Typography>
-                        <select name="target_id" value={formState.target_id} onChange={handleChange}>
+                        <Select name="target_id" value={formState.target_id} onChange={handleChange}>
                             {targets.map((target) => (<option key={target.id} value={target.id}>{target.name}</option>))}
-                        </select>
+                        </Select>
 
                     <Typography>Impact:</Typography>
-                        <select name="impact_id" value={formState.impact_id} onChange={handleChange}>
+                        <Select name="impact_id" value={formState.impact_id} onChange={handleChange}>
                             {impacts.map((impact) => (<option key={impact.id} value={impact.id}>{impact.name}</option>))}
-                        </select>
+                        </Select>
 
                     <Typography>Confidence:</Typography>
-                        <select name="confidence_id" value={formState.confidence_id} onChange={handleChange}>
+                        <Select name="confidence_id" value={formState.confidence_id} onChange={handleChange}>
                             {confidences.map((confidence) => (<option key={confidence.id} value={confidence.id}>{confidence.name}</option>))}
-                        </select>
+                        </Select>
 
                     <Typography>Effort:</Typography>
-                        <select name="effort_id" value={formState.effort_id} onChange={handleChange}>
+                        <Select name="effort_id" value={formState.effort_id} onChange={handleChange}>
                             {efforts.map((effort) => (<option key={effort.id} value={effort.id}>{effort.name}</option>))}
-                        </select>
+                        </Select>
        
 
                     <Typography>Due Date:</Typography>
@@ -78,16 +121,15 @@ function handleClick(event) {
                         ></select>
 
                     <Typography>Upload files:</Typography>
-                        <select
-                            type="text"
-                            name="uploadfiles"
-                            value={formState.uploadfiles}
-                            onChange={handleChange}
-                        ></select>
+                        <input type="text" name="uselectedFile" value={formState.selectedFile} onChange={handleChange}></input>
+                        <FileBase type="file" multiple={false} onDone={({ base64 }) => setFormState({ ...formState, selectedFile: base64 })} />
+                            <br></br>  <br></br>
  {/* If id is in the url, that means we update the ticket. If id is not in the url, that means we create a new ticket. */}
-                    <Button onClick={handleClick}>{id ? "Update" : "Create"}</Button>
+                    <Button variant="contained" onClick={handleClick}>{id ? "Update" : "Create"}</Button>
 
-</div>
+                </form>
+           </Paper>
+        
         );
 }
 

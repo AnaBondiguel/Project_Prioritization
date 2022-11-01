@@ -36,6 +36,7 @@ function App() {
     targets: [],
     impacts: [],
     confidences: [],
+    efforts: [],
     tickets: null,
     loggedInUser: null,
     auth: null,
@@ -94,6 +95,7 @@ function App() {
           <Route path="/" element={<MyTickets />} />
           <Route path="mytickets" element={<MyTickets />} />
           <Route path="newticket" element={<NewTicket />} />
+          <Route path="myticket/update/:id" element={<NewTicket />} />
           <Route path="listings" element={<Listings />} />
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
