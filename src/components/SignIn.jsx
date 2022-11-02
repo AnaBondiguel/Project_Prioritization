@@ -7,6 +7,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
+import { login } from "../services/authServices";
+import { useNavigate } from "react-router-dom";
+import { useGlobalState } from "../utils/StateContext";
 
 function SignIn(){
     const initialFormState = {
@@ -15,6 +18,9 @@ function SignIn(){
       };
     
       const [formState, setFormState] = useState(initialFormState);
+      const { dispatch } = useGlobalState();
+      let navigate = useNavigate();
+
       //setup onchange for email and password
       function handleChange(event) {
         setFormState({
@@ -25,11 +31,23 @@ function SignIn(){
       //setup submit button for sign in 
       function handleSubmit(event) {
         event.preventDefault();
-    
+    //once user login, we save user detailed information in the store.
+        login(formState)
+        .then((data) => {
+            let username = data.username;
+            let token = data.token;
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("user", username);
+            dispatch({ type: "setLoggedInUser", data: username });
+            dispatch({ type: "setToken", data: token });
+            //go to home page
+            navigate("/"); 
+      })
+      .catch((error) => console.log(error));
           }
      
     return (
-        <Box sx={{ ml:70, uswidth: 500, height: 500, backgroundColor: '#85C1E9 '}} >
+        <Box sx={{ ml: 70, width: 500, height: 500, backgroundColor: '#85C1E9 '}} >
             <Container maxWidth="lg">
                 <Typography variant="h6" align="center" gutterBottom>
                     <h1>Sign In</h1>
