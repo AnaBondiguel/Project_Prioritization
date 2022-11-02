@@ -9,7 +9,7 @@ import { useEffect } from "react";
 function MyTickets(){
     let navigate = useNavigate();
     const { store, dispatch } = useGlobalState();
-    const { tickets } = store;
+    const { tickets, loggedInUser } = store;
 
 // Get the list of tickets
     useEffect(() => {
@@ -27,27 +27,35 @@ function MyTickets(){
     if(!tickets) return "null";
 
     return (
+      //if users log in their account, they can see their tickets, otherwise, please sign in. 
         <div>
-            <>
-            <Typography>My Tickets</Typography>
-            
-            {tickets.map((ticket, index) => {
-              return (
-              //when we click the link, it will direct us to ticket detail page 
-                <Link key={ticket.id} to={`/mytickets/${ticket.id}`}>
-                  <Typography>
-                    Initative: {ticket.initiative}
-                    Description: {ticket.description}
-                    Target: {ticket.target}
-                    Priority: {ticket.priority}
-                    ICE Score: {ticket.ICE_Score}
-                  </Typography>
-                </Link> 
+          {loggedInUser ? (
+              <>
+              <Typography>My Tickets</Typography>
+              
+              {tickets.map((ticket, index) => {
+                return (
+                //when we click the link, it will direct us to ticket detail page 
+                  <Link key={ticket.id} to={`/mytickets/${ticket.id}`}>
+                    <Typography>
+                      Initative: {ticket.initiative}
+                      Description: {ticket.description}
+                      Target: {ticket.target}
+                      Priority: {ticket.priority}
+                      ICE Score: {ticket.ICE_Score}
+                    </Typography>
+                  </Link> 
 
-              );
-              })}
-              <button onClick={() => navigate("/newticket")}>Add Ticket</button>
+                );
+                })}
+                <button onClick={() => navigate("/newticket")}>Add Ticket</button>
               </>
+            ) : (
+              <>
+                <Typography>Please sign in.</Typography>
+              </>
+           )}
+       
         </div>
     );
 }

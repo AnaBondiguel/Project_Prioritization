@@ -34,7 +34,6 @@ const TicketDetails = () => {
                 <p>{ticket.description}</p>
                 <p>Username: {ticket.username}</p>
                 <p>Target: {ticket.target}</p>
-                <p>Type: {ticket.type}</p>
                 <p>Impact: {ticket.impact}</p>
                 <p>Confidence: {ticket.confidence}</p>
                 <p>Effort: {ticket.effort}</p>

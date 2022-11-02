@@ -36,8 +36,8 @@ function SignIn(){
         .then((data) => {
             let username = data.username;
             let token = data.token;
-            sessionStorage.setItem("token", token);
-            sessionStorage.setItem("user", username);
+            // sessionStorage.setItem("token", token);
+            // sessionStorage.setItem("user", username);
             dispatch({ type: "setLoggedInUser", data: username });
             dispatch({ type: "setToken", data: token });
             //go to home page
