@@ -1,35 +1,45 @@
 import React, { useState } from "react";
-import Button from "@mui/material/Button";
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+import { useNavigate } from "react-router-dom";
+import { Box, Button, Container, Typography, Grid, Link} from "@mui/material";
+import { register } from "../services/authServices";
+import { useGlobalState } from "../utils/StateContext";
 
-function SignUp(){
-    const initialFormState = {
-        firstname: "",
-        lastname: "",
-        email:"",
-        password:"",
-        comfirmpassword:"",
-      };
-    
-      const [formState, setFormState] = useState(initialFormState);
+    function SignUp(){
+        const initialFormState = {
+            firstname: "",
+            lastname: "",
+            email:"",
+            password:"",
+            comfirmpassword:"",
+        };
+        
+        const [formState, setFormState] = useState(initialFormState);
+        const { dispatch } = useGlobalState();
+        let navigate = useNavigate();
 
-           //setup onchange for firstname, lastname, email, password
-           function handleChange(event) {
-            setFormState({
-              ...formState,
-              [event.target.name]: event.target.value,
-            });
-          }
-
+            //setup onchange for firstname, lastname, email, password
+            function handleChange(event) {
+                setFormState({
+                ...formState,
+                [event.target.name]: event.target.value,
+                });
+            }
+        
             //setup submit button for sign up 
             function handleSubmit(event) {
                 event.preventDefault();
-            
-                }
+                register(formState).then((data) => {
+                  let username = data.username;
+                  let token = data.token;
+                //   console.log("registered", data);
+                // set token in session storage later
+                //   sessionStorage.setItem("token", jwt);
+                //   sessionStorage.setItem("user", username);
+                  dispatch({ type: "setLoggedInUser", data: username });
+                  dispatch({ type: "setToken", data: token });
+                  navigate("/");
+                })
+            }
 
     return (
         <Box sx={{ml: 70, width: 550, height: 550, backgroundColor: '#85C1E9 '}} >
@@ -44,14 +54,14 @@ function SignUp(){
                         <br></br>  <br></br> 
                     <label>Password:</label><input type="password" name="password" value={formState.password} onChange={handleChange}></input>
                         <br></br>  <br></br> 
-                    <label>Comfirm Password:</label><input type="password" name="confirmpassword" value={formState.comfirmpassword} onChange={handleChange}></input>
+                    <label>Comfirm Password:</label><input type="password" name="comfirmpassword" value={formState.comfirmpassword} onChange={handleChange}></input>
                         <br></br>  <br></br> 
                     <Button variant="contained" onClick={handleSubmit}>Sign up</Button>
                         <br></br> <br></br> 
                     <Grid container spacing={1} columns={8}>
                         <Grid item xs={4}>Already a user?</Grid>
                         <Grid item xs={4}>
-                            <Link href="/Signin">Sign in</Link>
+                            <Link href="/signin">Sign in</Link>
                         </Grid>
                     </Grid>
                 </Typography>
