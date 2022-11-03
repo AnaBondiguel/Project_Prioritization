@@ -1,4 +1,9 @@
+// import projectAPI from "../config/api";
 
+// export async function getImpacts() {
+//   const response = await projectAPI.get('/api/impacts');
+//   return response.data;
+// }
 export async function getImpacts(){
     const impacts = [
         {id:1, name:"Small"},

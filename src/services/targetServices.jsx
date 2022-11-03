@@ -1,4 +1,9 @@
+// import projectAPI from "../config/api";
 
+// export async function getTargets() {
+//   const response = await projectAPI.get('/api/targets');
+//   return response.data;
+// }
 
 export async function getTargets(){
     const targets = [
