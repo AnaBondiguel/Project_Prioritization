@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from '@mui/material/Grid';
 import { Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/StateContext";
 import { logout } from "../services/authServices";
 
+
+
 const Header = () => {
     let initialData = {
-        projects: [],
         userInput: "",
       };
     
@@ -35,42 +36,41 @@ const Header = () => {
         });
       }
 
-    //   useEffect(
-    //     () => {
-    //       function fetchTickets() {
-    //         const url = "";
-    //         fetch(url)
-    //           .then((result) => {
-    //             return result.json();
-    //           })
-    //           .then((data) => {
-    //             const tickets = data // array
-    //               .map((ticket) => ({
-    //                 initiative: ticket.initiative,
-    //                 submitted_date: ticket.submitted_date,
-    //                 description: ticket.description,
-    //                 type: ticket.type,
-    //                 target: ticket.target,
-    //                 target: ticket.ICEscore,
-    //               }));
-    //             setData({
-    //               ...data,
-    //               tickets: tickets,
-    //             });
-    //           })
-    //           .catch((error) => {
-    //             console.log("Error!", error);
-    //           })
-    //           .finally(() => {
-    //             console.log("Fetch completed.");
-    //           });
-    //       }
+    //fetch ticket from http://localhost:3000/listings
+      useEffect(
+        () => {
+          function fetchTickets() {
+            const url = "http://localhost:3000/listings"; 
+            fetch(url)
+              .then((result) => {
+                return result.json();
+              })
+              .then((data) => {
+                const tickets = data // array
+                  .map((ticket) => ({
+                    initiative: ticket.initiative,
+                    description: ticket.description,
+                    target: ticket.target,
+                    ICEScore: ticket.ICEScore,
+                  }));
+                setData({
+                  ...data,
+                  tickets: tickets,
+                });
+              })
+              .catch((error) => {
+                console.log("Error!", error);
+              })
+              .finally(() => {
+                console.log("Fetch completed.");
+              });
+          }
     
-    //       fetchTickets();
-    //     },
-    //     // only run on component did mount
-    //     []
-    //   );
+          fetchTickets();
+        },
+        // only run on component did mount
+        []
+      );
 
     return (
         <header>
