@@ -38,8 +38,8 @@ function App() {
     confidences: [],
     efforts: [],
     tickets: null,
-    loggedInUser: null,
-    auth: null,
+    loggedInUser: sessionStorage.getItem("user") || null,
+    auth: sessionStorage.getItem("token") || null,
   };
   const [store, dispatch] = useReducer(reducer, initialState);
   const { loggedInUser } = store;

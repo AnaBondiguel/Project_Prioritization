@@ -14,7 +14,7 @@ const TicketDetails = () => {
     function handleDelete() {
         deleteTicket(id).then(() => {
           dispatch({ type: "deleteTicket", data: id });
-          navigate(-1);
+          navigate('/mytickets');
         });
       }
 //when the page is loaded, we can fetch the ticket by its given id. If id is changed, we can fetch the ticket.

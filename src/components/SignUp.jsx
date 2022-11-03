@@ -33,8 +33,8 @@ import { useGlobalState } from "../utils/StateContext";
                   let token = data.token;
                 //   console.log("registered", data);
                 // set token in session storage later
-                //   sessionStorage.setItem("token", jwt);
-                //   sessionStorage.setItem("user", username);
+                  sessionStorage.setItem("token", token);
+                  sessionStorage.setItem("user", username);
                   dispatch({ type: "setLoggedInUser", data: username });
                   dispatch({ type: "setToken", data: token });
                   navigate("/");

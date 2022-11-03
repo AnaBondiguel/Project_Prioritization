@@ -13,6 +13,10 @@ function MyTickets(){
 
 // Get the list of tickets
     useEffect(() => {
+      if (!loggedInUser) {
+        return;
+      }
+
       // console.log("tickets at top:", tickets)
       if(!tickets){
         getTickets() 
@@ -22,7 +26,7 @@ function MyTickets(){
         })
         .catch((error) => console.log(error));
       }
-    }, [dispatch, tickets])
+    }, [dispatch, tickets, loggedInUser])
   
     if(!tickets) return "null";
 
