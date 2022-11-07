@@ -43,7 +43,7 @@ const TicketDetails = () => {
                 <p>Feedback: {ticket.feedback}</p>
 
         <Box>
-            <Button onClick={() => navigate(`/mytickets/update/${id}`)}>Edit</Button>
+            <Button onClick={() => navigate(`/mytickets/update/${id}`, { state: ticket })}>Edit</Button>
             <Button onClick={handleDelete}>Delete</Button>
        </Box>
 

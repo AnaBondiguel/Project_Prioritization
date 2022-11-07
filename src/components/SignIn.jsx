@@ -34,7 +34,22 @@ function SignIn(){
     //once user login, we save user detailed information in the store.
         login(formState)
         .then((data) => {
-            let username = data.username;
+            let username = data.user;
+            // user: { username, role }
+            // const loggedInUser = sessionStorage.getItem('user')
+            // ...
+            /*
+            // TicketForm.jsx
+            const Form = (props) => {
+                return <form>...</form>
+            }
+
+            if (loggedInUser.role === 'manager') {
+                return <TicketForm disabledFields={['initiative', 'description']} />
+            }
+
+            return <TicketForm disabledFields={['priority']} />
+            */
             let token = data.token;
             sessionStorage.setItem("token", token);
             sessionStorage.setItem("user", username);

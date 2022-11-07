@@ -20,6 +20,6 @@ export async function login(data) {
 
 export async function logout() {
     //clear the token of the current user when we press logout
-    sessionStorage.clear();
+    // sessionStorage.clear();
     return "Logged out."
 }

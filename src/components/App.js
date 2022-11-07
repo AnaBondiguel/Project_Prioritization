@@ -1,6 +1,6 @@
 import { React, useEffect, useReducer } from "react";
 import MyTickets from './MyTickets';
-import NewTicket from './NewTicket';
+import TicketForm from './TicketForm';
 import TicketDetails from './TicketDetails';
 import Listings from './Listings';
 import SearchResults from './SearchResults';
@@ -18,6 +18,7 @@ import { getTargets } from "../services/targetServices";
 import { getImpacts } from "../services/impactServices";
 import { getConfidences } from "../services/confidenceServices";
 import { getEfforts } from "../services/effortServices";
+// import EditTicket from './EditTicket';
 
 const sections = [
   {
@@ -94,14 +95,18 @@ function App() {
         <Routes>
           <Route path="/" element={<MyTickets />} />
           <Route path="mytickets" element={<MyTickets />} />
-          <Route path="newticket" element={<NewTicket />} />
-          <Route path="myticket/update/:id" element={<NewTicket />} />
+          <Route path="newticket" element={<TicketForm />} />
+          {/* { store.user.role === 'manager' ? <Route path="editticket" element={<NewTicket enableInitiative={false} /> : 
+          <Route path="editticket" element={<NewTicket />} */}
+          {/* <Route path="editticket" element={<NewTicket enableInitiative={false} />} /> */}
+          <Route path="mytickets/update/:id" element={<TicketForm />} />
           <Route path="listings" element={<Listings />} />
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="searchresults" element={<SearchResults />} />
           <Route path="submissionsuccess" element={<SubmissionSuccess />} />
           <Route path="mytickets/:id" element={<TicketDetails  />} />
+          {/* <Route path="mytickets/update/:id" element={<EditTicket  />} /> */}
          
           {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>

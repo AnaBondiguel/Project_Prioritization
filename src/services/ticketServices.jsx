@@ -1,4 +1,4 @@
-import projectAPI from "../config/api";
+// import projectAPI from "../config/api";
 
 
 const tickets = [
@@ -69,32 +69,32 @@ export async function getTicket(id) {
 
 //create a ticket
 export async function createTicket(ticket) {
-  // return ticket;
-  const response = await projectAPI.post('/api/tickets/new', ticket);
-	return response.data;
+   return ticket;
+  // const response = await projectAPI.post('/api/tickets/new', ticket);
+	// return response.data;
 }
 
 //delete a ticket
 export async function deleteTicket(id) {
-  // return id;
-  const response = await projectAPI.delete(`/api/tickets/${id}`);
-	return response.data;
+   return id;
+  //const response = await projectAPI.delete(`/api/tickets/${id}`);
+	// return response.data;
 }
 
 //update a ticket
 export async function updateTicket(ticket) {
-  // return ticket;
-  let updatedTicket = {
-    initiative: ticket.initiative,
-		description: ticket.description,
-    target: ticket.target,
-    impact: ticket.impact,
-    confidence: ticket.confidence,
-    effort: ticket.effort,
-    dueDate: ticket.duedate,
-    ICE_Score: ticket.ICE_Score,
-    priority: ticket.priority,
-	}
-	const response = await projectAPI.put(`/api/tickets/${ticket.id}`, updatedTicket);
-	return response.data;
+   return ticket;
+//   let updatedTicket = {
+//     initiative: ticket.initiative,
+// 		description: ticket.description,
+//     target: ticket.target,
+//     impact: ticket.impact,
+//     confidence: ticket.confidence,
+//     effort: ticket.effort,
+//     dueDate: ticket.duedate,
+//     ICE_Score: ticket.ICE_Score,
+//     priority: ticket.priority,
+// 	}
+// 	const response = await projectAPI.put(`/api/tickets/${ticket.id}`, updatedTicket);
+// 	return response.data;
 }

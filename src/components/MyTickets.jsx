@@ -43,8 +43,8 @@ function MyTickets(){
                   <Link key={ticket.id} to={`/mytickets/${ticket.id}`}>
                     <Typography>
                       Initative: {ticket.initiative}
-                      Description: {ticket.description}
-                      Target: {ticket.target}
+                      {/* Description: {ticket.description}
+                      Target: {ticket.target} */}
                       Priority: {ticket.priority}
                       ICE Score: {ticket.ICE_Score}
                     </Typography>
