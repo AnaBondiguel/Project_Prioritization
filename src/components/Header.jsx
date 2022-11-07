@@ -76,7 +76,7 @@ const Header = () => {
         <header>
           <Grid container spacing={3}>
                 <Grid item xs>
-                    {/* <img src="https://media-exp1.licdn.com/dms/image/C4D0BAQGO1uzGzmVB-A/company-logo_200_200/0/1656630677571?e=1674691200&v=beta&t=tluNdfouY9QZ-2Yq10r9V1_Lk9KteBfrkcttzlngA0A" width="50" height="50" alt="logo"/> */}
+                    {/* <img src="" width="50" height="50" alt="logo"/> */}
                 </Grid>
                 <Grid item xs={6}>
                     <label>Search: </label><input type="text" onChange={handleOnChange}></input>
