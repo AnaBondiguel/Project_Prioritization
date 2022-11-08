@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Typography, List, ListItem, IconButton, Avatar } from "@mui/material";
+import { deepPurple } from '@mui/material/colors';
 import { Link, useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/StateContext";
 import { getTickets } from "../services/ticketServices";
@@ -47,9 +48,7 @@ function MyTickets(){
                   
                 //when we click the link, it will direct us to ticket detail page 
                 <ListItem>
-                  <Avatar>
-                    {ticket.priority}
-                  </Avatar>
+                  <Avatar sx={{ bgcolor: deepPurple[500] }}>{ticket.priority}</Avatar>
 
                     <Link key={ticket.id} to={`/mytickets/${ticket.id}`}>
                       <Typography>

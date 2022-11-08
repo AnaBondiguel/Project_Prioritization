@@ -58,13 +58,15 @@ function Listings(){
                     key={ticket.initiative}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-         
+                        <TableCell align="left">{ticket.priority} </TableCell>
+
                     <Link key={ticket.id} to={`/mytickets/${ticket.id}`}>
-                        <TableCell align="right">{ticket.priority} </TableCell>
                         <TableCell align="right">{ticket.initiative} </TableCell>
-                        <TableCell align="right">{ticket.target} </TableCell>
-                        <TableCell align="right"> {ticket.ICE_Score}</TableCell>
                     </Link>
+
+                        <TableCell align="left">{ticket.target} </TableCell>
+                        <TableCell align="left"> {ticket.ICE_Score}</TableCell>
+                    
                     </TableRow>
                 );
                 }

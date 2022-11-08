@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  Grid,
   MenuItem,
   Typography,
   Button,
@@ -21,7 +22,6 @@ import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-
 /**
  * TicketForm is also used for the edit page
  * How it works is that coming from the TicketDetails page, we're sending
@@ -31,7 +31,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
  * in TicketDetails.jsx
  * const navigate = useNavigate() // this is how to send data
  * <button onClick={navigate(`/mytickets/update/${id}`, { state }) />
- * 
+ *
  * in TicketForm.jsx
  * const location = useLocation() // this is how to receive data
  * const [formState, setFormState] = useState(initialState)
@@ -50,7 +50,7 @@ function TicketForm(props) {
     confidence_id: 1,
     effort_id: 1,
     selectedFile: "",
-    feedback:"",
+    feedback: "",
   };
   // const {
   //     enableInitiative = false,
@@ -87,11 +87,11 @@ function TicketForm(props) {
     //setFormState(location.state)
 
     // state = initialFormState
-    setFormState(state => {
+    setFormState((state) => {
       return {
         ...state, // this is the initialFormState
-        ...location.state // this is the ticket details
-      }
+        ...location.state, // this is the ticket details
+      };
     });
   }, [location.state]);
 
@@ -121,7 +121,7 @@ function TicketForm(props) {
         .then((ticket) => {
           dispatch({ type: "addTicket", data: ticket });
           //we can navigate back to the my tickets page once we create a ticket.
-          navigate("/mytickets");
+          navigate("/submissionsuccess");
         })
         .catch((error) => console.log(error));
     }
@@ -129,106 +129,128 @@ function TicketForm(props) {
 
   return (
     <Paper elevation={3}>
-      <form>
-        <h1>New Ticket</h1>
-        <Typography>Initiative:</Typography>
-        <input
-          type="text"
-          name="initiative"
-          value={formState.initiative}
-          onChange={handleChange}
-        ></input>
-        <Typography>Description:</Typography>
-        <textarea
-          type="text"
-          name="description"
-          value={formState.description}
-          onChange={handleChange}
-        ></textarea>
-        <Typography>Target:</Typography>
-        <NativeSelect
-          name="target_id"
-          value={formState.target_id}
-          onChange={handleChange}
-        >
-          {targets.map((target) => (
-            <option key={target.id} value={target.id}>
-              {target.name}
-            </option>
-          ))}
-        </NativeSelect>
-        <Typography>Impact:</Typography>
-        <select
-          name="impact_id"
-          value={formState.impact_id}
-          onChange={handleChange}
-        >
-          {impacts.map((impact) => (
-            <option key={impact.id} value={impact.id}>
-              {impact.name}
-            </option>
-          ))}
-        </select>
-        <Typography>Confidence:</Typography>
-        <Select
-          name="confidence_id"
-          value={formState.confidence_id}
-          onChange={handleChange}
-        >
-          {confidences.map((confidence) => (
-            <MenuItem key={confidence.id} value={confidence.id}>
-              {confidence.name}
-            </MenuItem>
-          ))}
-        </Select>
-        <Typography>Effort:</Typography>
-        <Select
-          name="effort_id"
-          value={formState.effort_id}
-          onChange={handleChange}
-        >
-          {efforts.map((effort) => (
-            <MenuItem key={effort.id} value={effort.id}>
-              {effort.name}
-            </MenuItem>
-          ))}
-        </Select>
-        <Typography>Due Date:</Typography>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DatePicker
-            label="Basic example"
-            value={formState.duedate}
-            onChange={handleChange}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
-        <Typography>Upload files:</Typography>
-        <input
-          type="text"
-          name="uselectedFile"
-          value={formState.selectedFile}
-          onChange={handleChange}
-        ></input>
-        <FileBase
-          type="file"
-          multiple={false}
-          onDone={({ base64 }) =>
-            setFormState({ ...formState, selectedFile: base64 })
-          }
-        />
-         <Typography>Feedback:</Typography>
-        <textarea
-          type="text"
-          name="feedback"
-          value={formState.feedback}
-          onChange={handleChange}
-        ></textarea>
-        <br></br> <br></br>
-        {/* If id is in the url, that means we update the ticket. If id is not in the url, that means we create a new ticket. */}
-        <Button variant="contained" onClick={handleClick}>
-          {id ? "Update" : "Create"}
+      <h1>New Ticket</h1>
+      <Grid container spacing={2} columns={16}>
+        <Grid item xs={8}>
+          <form>
+            <Typography>Initiative:</Typography>
+              <input
+                type="text"
+                name="initiative"
+                value={formState.initiative}
+                onChange={handleChange}
+              ></input>
+
+            <Typography>Description:</Typography>
+              <textarea
+                type="text"
+                name="description"
+                value={formState.description}
+                onChange={handleChange}
+              ></textarea>
+
+            <Typography>Target:</Typography>
+              <NativeSelect
+                name="target_id"
+                value={formState.target_id}
+                onChange={handleChange}
+              >
+                {targets.map((target) => (
+                  <option key={target.id} value={target.id}>
+                    {target.name}
+                  </option>
+                ))}
+              </NativeSelect>
+
+            <Typography>Due Date:</Typography>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label="Basic example"
+                  value={formState.duedate}
+                  onChange={handleChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+
+            <Typography>Upload files:</Typography>
+              <input
+                type="text"
+                name="uselectedFile"
+                value={formState.selectedFile}
+                onChange={handleChange}
+              ></input>
+              <FileBase
+                type="file"
+                multiple={false}
+                onDone={({ base64 }) =>
+                  setFormState({ ...formState, selectedFile: base64 })
+                }
+              />
+          </form>
+        </Grid>
+
+        <Grid item xs={8}>
+          <form>
+            <Typography>Impact:</Typography>
+            <select
+              name="impact_id"
+              value={formState.impact_id}
+              onChange={handleChange}
+            >
+              {impacts.map((impact) => (
+                <option key={impact.id} value={impact.id}>
+                  {impact.name}
+                </option>
+              ))}
+            </select>
+            <Typography>Confidence:</Typography>
+            <Select
+              name="confidence_id"
+              value={formState.confidence_id}
+              onChange={handleChange}
+            >
+              {confidences.map((confidence) => (
+                <MenuItem key={confidence.id} value={confidence.id}>
+                  {confidence.name}
+                </MenuItem>
+              ))}
+            </Select>
+            <Typography>Effort:</Typography>
+            <Select
+              name="effort_id"
+              value={formState.effort_id}
+              onChange={handleChange}
+            >
+              {efforts.map((effort) => (
+                <MenuItem key={effort.id} value={effort.id}>
+                  {effort.name}
+                </MenuItem>
+              ))}
+            </Select>
+
+            <Typography>Feedback:</Typography>
+            <textarea
+              type="text"
+              name="feedback"
+              value={formState.feedback}
+              onChange={handleChange}
+            ></textarea>
+          </form>
+        </Grid>
+      </Grid>
+      <br></br> <br></br>
+      {/* If id is in the url, that means we update the ticket. If id is not in the url, that means we create a new ticket. */}
+      <Grid container spacing={1}>
+      <Grid item xs={1}>
+        <Button variant="contained" onClick={handleClick}>Save</Button>
+      </Grid>
+      <Grid item xs={1}>
+        <Button variant="contained" color="success"onClick={handleClick}>
+          {id ? "Update" : "Submit"}
         </Button>
-      </form>
+      </Grid>
+      </Grid>
+    
     </Paper>
   );
 }
