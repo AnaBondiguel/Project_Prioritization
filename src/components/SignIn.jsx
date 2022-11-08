@@ -34,7 +34,7 @@ function SignIn(){
     //once user login, we save user detailed information in the store.
         login(formState)
         .then((data) => {
-            let username = data.user;
+            let username = data.username;
             // user: { username, role }
             // const loggedInUser = sessionStorage.getItem('user')
             // ...

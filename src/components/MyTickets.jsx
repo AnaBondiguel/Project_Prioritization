@@ -1,15 +1,16 @@
-import React from "react";
-import { Typography} from "@mui/material";
+import React, { useEffect } from "react";
+import { Typography, List, ListItem, IconButton, Avatar } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/StateContext";
 import { getTickets } from "../services/ticketServices";
-import { useEffect } from "react";
-
+import DeleteIcon from '@mui/icons-material/Delete';
+// import { handleDelete } from "./TicketDetails";
 
 function MyTickets(){
     let navigate = useNavigate();
     const { store, dispatch } = useGlobalState();
     const { tickets, loggedInUser } = store;
+    const [dense] = React.useState(false);
 
 // Get the list of tickets
     useEffect(() => {
@@ -36,22 +37,38 @@ function MyTickets(){
           {loggedInUser ? (
               <>
               <Typography>My Tickets</Typography>
-              
+              <List dense={dense}>
+            
+                  
+               
               {tickets.map((ticket, index) => {
                 return (
+                 
+                  
                 //when we click the link, it will direct us to ticket detail page 
-                  <Link key={ticket.id} to={`/mytickets/${ticket.id}`}>
-                    <Typography>
-                      Initative: {ticket.initiative}
-                      {/* Description: {ticket.description}
-                      Target: {ticket.target} */}
-                      Priority: {ticket.priority}
-                      ICE Score: {ticket.ICE_Score}
-                    </Typography>
-                  </Link> 
+                <ListItem>
+                  <Avatar>
+                    {ticket.priority}
+                  </Avatar>
 
+                    <Link key={ticket.id} to={`/mytickets/${ticket.id}`}>
+                      <Typography>
+                        Initative: {ticket.initiative} & 
+                        ICE Score: {ticket.ICE_Score}
+                      </Typography>
+                    </Link> 
+               
+                    <IconButton edge="end" aria-label="delete">
+                      {/* <DeleteIcon onClick={handleDelete}/> */}
+                      <DeleteIcon />
+                    </IconButton>
+         
+                    </ListItem>
                 );
                 })}
+              
+                </List>
+
                 <button onClick={() => navigate("/newticket")}>Add Ticket</button>
               </>
             ) : (

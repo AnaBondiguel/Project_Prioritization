@@ -50,6 +50,7 @@ function TicketForm(props) {
     confidence_id: 1,
     effort_id: 1,
     selectedFile: "",
+    feedback:"",
   };
   // const {
   //     enableInitiative = false,
@@ -215,6 +216,13 @@ function TicketForm(props) {
             setFormState({ ...formState, selectedFile: base64 })
           }
         />
+         <Typography>Feedback:</Typography>
+        <textarea
+          type="text"
+          name="feedback"
+          value={formState.feedback}
+          onChange={handleChange}
+        ></textarea>
         <br></br> <br></br>
         {/* If id is in the url, that means we update the ticket. If id is not in the url, that means we create a new ticket. */}
         <Button variant="contained" onClick={handleClick}>
