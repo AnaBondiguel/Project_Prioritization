@@ -45,7 +45,6 @@ export default function reducer (state, action) {
                 tickets: updatedTickets
             }
         }
-
         case 'updateTicket': {
             const ticket = state.tickets.find((ticket) => ticket.id === action.data.id)
             const updatedTicket = Object.assign(ticket, action.data)
@@ -56,6 +55,7 @@ export default function reducer (state, action) {
                 tickets: [updatedTicket, ...otherTickets]
             }
         }
+
         case 'setLoggedInUser': {
             return {
                 ...state,

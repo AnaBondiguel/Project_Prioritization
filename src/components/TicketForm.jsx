@@ -46,6 +46,7 @@ function TicketForm(props) {
     initiative: "",
     description: "",
     target_id: 1,
+    duedate: "",
     impact_id: 1,
     confidence_id: 1,
     effort_id: 1,
@@ -65,6 +66,7 @@ function TicketForm(props) {
   const [formState, setFormState] = useState(initialFormState);
   const { dispatch, store } = useGlobalState();
   const { targets, impacts, confidences, efforts } = store;
+  const [value, setValue] = React.useState(null); //for date picker
 
   let { id } = useParams();
   let navigate = useNavigate();
@@ -134,58 +136,60 @@ function TicketForm(props) {
         <Grid item xs={8}>
           <form>
             <Typography>Initiative:</Typography>
-              <input
-                type="text"
-                name="initiative"
-                value={formState.initiative}
-                onChange={handleChange}
-              ></input>
+            <input
+              type="text"
+              name="initiative"
+              value={formState.initiative}
+              onChange={handleChange}
+            ></input>
 
             <Typography>Description:</Typography>
-              <textarea
-                type="text"
-                name="description"
-                value={formState.description}
-                onChange={handleChange}
-              ></textarea>
+            <textarea
+              type="text"
+              name="description"
+              value={formState.description}
+              onChange={handleChange}
+            ></textarea>
 
             <Typography>Target:</Typography>
-              <NativeSelect
-                name="target_id"
-                value={formState.target_id}
-                onChange={handleChange}
-              >
-                {targets.map((target) => (
-                  <option key={target.id} value={target.id}>
-                    {target.name}
-                  </option>
-                ))}
-              </NativeSelect>
+            <NativeSelect
+              name="target_id"
+              value={formState.target_id}
+              onChange={handleChange}
+            >
+              {targets.map((target) => (
+                <option key={target.id} value={target.id}>
+                  {target.name}
+                </option>
+              ))}
+            </NativeSelect>
 
             <Typography>Due Date:</Typography>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="Basic example"
-                  value={formState.duedate}
-                  onChange={handleChange}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Due date"
+                value={value}
+                onChange={(newValue) => {
+                  setValue(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
 
             <Typography>Upload files:</Typography>
-              <input
-                type="text"
-                name="uselectedFile"
-                value={formState.selectedFile}
-                onChange={handleChange}
-              ></input>
-              <FileBase
-                type="file"
-                multiple={false}
-                onDone={({ base64 }) =>
-                  setFormState({ ...formState, selectedFile: base64 })
-                }
-              />
+            <input
+              type="text"
+              name="uselectedFile"
+              value={formState.selectedFile}
+              onChange={handleChange}
+            ></input>
+            <FileBase
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) =>
+                setFormState({ ...formState, selectedFile: base64 })
+              }
+            />
           </form>
         </Grid>
 
@@ -241,16 +245,17 @@ function TicketForm(props) {
       <br></br> <br></br>
       {/* If id is in the url, that means we update the ticket. If id is not in the url, that means we create a new ticket. */}
       <Grid container spacing={1}>
-      <Grid item xs={1}>
-        <Button variant="contained" onClick={handleClick}>Save</Button>
+        <Grid item xs={1}>
+          <Button variant="contained" onClick={handleClick}>
+            Save
+          </Button>
+        </Grid>
+        <Grid item xs={1}>
+          <Button variant="contained" color="success" onClick={handleClick}>
+            {id ? "Update" : "Submit"}
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item xs={1}>
-        <Button variant="contained" color="success"onClick={handleClick}>
-          {id ? "Update" : "Submit"}
-        </Button>
-      </Grid>
-      </Grid>
-    
     </Paper>
   );
 }
