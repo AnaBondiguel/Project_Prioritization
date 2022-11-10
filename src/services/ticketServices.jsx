@@ -10,7 +10,7 @@ const tickets = [
     impact: "Medium",
     confidence: "Large",
     effort: "small",
-    dueDate: "2022-01-11T01:33:50.019Z",
+    dueDate: "2022-03-12",
     // user_id: 1,
     ICE_Score: "24",
     priority: "1",
@@ -98,3 +98,4 @@ export async function updateTicket(ticket) {
 // 	const response = await projectAPI.put(`/api/tickets/${ticket.id}`, updatedTicket);
 // 	return response.data;
 }
+

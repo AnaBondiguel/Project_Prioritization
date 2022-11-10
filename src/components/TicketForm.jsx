@@ -13,6 +13,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import {
   createTicket,
   updateTicket,
+  saveTicket,
   getTicket,
 } from "../services/ticketServices";
 import FileBase from "react-file-base64";
@@ -46,7 +47,7 @@ function TicketForm(props) {
     initiative: "",
     description: "",
     target_id: 1,
-    duedate: "",
+    dueDate: "",
     impact_id: 1,
     confidence_id: 1,
     effort_id: 1,
@@ -109,8 +110,8 @@ function TicketForm(props) {
     event.preventDefault();
     //if statement to handle update ticket and create ticket
     if (id) {
-      updateTicket({ id: id, ...formState })
-        .then(() => {
+     updateTicket({ id: id, ...formState })
+         .then(() => {
           dispatch({
             type: "updateTicket",
             data: { id: id, ...formState },
@@ -132,34 +133,20 @@ function TicketForm(props) {
   }
 
   // function saveClick(event) {
-  //   dispatch({
-  //     type: 'saveClick'
-  //   })
-  // }
-
-  //   updateTicket({ id: id, ...formState })
-  //       .then(() => {
+  //   if (id){event.preventDefault();
+  //   saveTicket({...formState })
+  //        .then(() => {
   //         dispatch({
-  //           type: "updateTicket",
-  //           data: { id: id, ...formState },
+  //           type: "saveTicket",
+  //           data: ticket,
   //         });
   //         //if user update ticket with form, leave ticket to show on the page.
   //         navigate(`/mytickets/${id}`);
   //       })
   //       .catch((error) => console.log(error));
-  // }
-
-  // function submitClick(event) {
-  //   event.preventDefault();
-  //        createTicket({ ...formState })
-  //       .then((ticket) => {
-  //         dispatch({ type: "addTicket", data: ticket });
-  //         //we can navigate back to the my tickets page once we create a ticket.
-  //         navigate("/submissionsuccess");
-  //       })
-  //       .catch((error) => console.log(error));
-  // }
-
+  //     }
+  //   }
+  
   return (
     <Paper elevation={3}>
       <h1>New Ticket</h1>
@@ -286,15 +273,7 @@ function TicketForm(props) {
             {id ? "Update" : "Submit"}
           </Button>
 
-          {/* <Button name="" variant="contained" onClick={saveClick}>
-              Save
-          </Button>
-         
-        </Grid>
-        <Grid item xs={1}>
-          <Button variant="contained" color="success" onClick={submitClick}>
-             Submit
-          </Button>  */}
+ 
         </Grid>
       </Grid>
     </Paper>

@@ -50,9 +50,7 @@ export default function reducer (state, action) {
             const ticket = state.tickets.find((ticket) => ticket.id == action.data.id)
             console.log(ticket)
             console.log(action.data)
-            const updatedTicket = Object.assign(ticket, action.data)
-            
-           
+            const updatedTicket = Object.assign(ticket, action.data)       
 //we only changed one ticket and need to remain the rest of ticket list the same as before
             const otherTickets = state.tickets.filter((ticket) => ticket.id !== action.data.id)
             return {
@@ -76,14 +74,13 @@ export default function reducer (state, action) {
                 }
             }
         }
-    //     case 'saveClick': {
-    //         const updateTickets = state.tickets;
-    //         updateTickets[state.selectedTicketId] = state.tickets
-    //         return{
-    //             ...state,
-    //             tickets: updateTickets,
-    //         }
-    //     }
+        // case 'saveTicket': {
+        //     const ticket = state.tickets.find((ticket) => ticket.id == action.data.id)
+        //     const updatedTicket = Object.assign(ticket, action.data) 
+        //     return {
+        //         ...state,
+        //         tickets: [action.data, ...updatedTicket]
+        //     }   
     
         default: return state
 
