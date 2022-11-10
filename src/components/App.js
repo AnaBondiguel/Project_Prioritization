@@ -43,7 +43,7 @@ function App() {
     auth: sessionStorage.getItem("token") || null,
   };
   const [store, dispatch] = useReducer(reducer, initialState);
-  const { loggedInUser } = store;
+  const { loggedInUser} = store;
 
   useEffect(() => {
     if (!loggedInUser){

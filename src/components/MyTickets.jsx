@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/StateContext";
 import { getTickets } from "../services/ticketServices";
 import DeleteIcon from '@mui/icons-material/Delete';
-// import { handleDelete } from "./TicketDetails";
 
 function MyTickets(){
     let navigate = useNavigate();
@@ -45,7 +44,6 @@ function MyTickets(){
               {tickets.map((ticket, index) => {
                 return (
                  
-                  
                 //when we click the link, it will direct us to ticket detail page 
                 <ListItem>
                   <Avatar sx={{ bgcolor: deepPurple[500] }}>{ticket.priority}</Avatar>
@@ -57,10 +55,7 @@ function MyTickets(){
                       </Typography>
                     </Link> 
                
-                    <IconButton edge="end" aria-label="delete">
-                      {/* <DeleteIcon onClick={handleDelete}/> */}
-                      <DeleteIcon />
-                    </IconButton>
+              
          
                     </ListItem>
                 );

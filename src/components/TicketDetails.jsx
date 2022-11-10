@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button,Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteTicket, getTicket } from "../services/ticketServices";
+import { deleteTicket, getTicket, updateTicket } from "../services/ticketServices";
 import { useGlobalState } from "../utils/StateContext";
   
 const TicketDetails = () => {
+  
     const [ticket, setTicket] = useState(null);
     let navigate = useNavigate();
     const { id } = useParams();
     const { dispatch } = useGlobalState();
+
+
 
 //setup onClick for delete button 
     function handleDelete() {
@@ -42,10 +45,18 @@ const TicketDetails = () => {
                 <p>ICE Score: {ticket.ICE_Score}</p>
                 <p>Feedback: {ticket.feedback}</p>
 
-        <Box>
-            <Button onClick={() => navigate(`/mytickets/update/${id}`, { state: ticket })}>Edit</Button>
-            <Button onClick={handleDelete}>Delete</Button>
-       </Box>
+            <Box>
+                {/* {!id ? (
+                    <> */}
+                        <Button onClick={() => navigate(`/mytickets/update/${id}`, { state: ticket })}>Edit</Button>
+                        <Button onClick={handleDelete}>Delete</Button>
+                    {/* </>
+                    ) : (
+                    <>
+                         <Typography>You have already submitted the ticket!</Typography>
+                    </>
+                )} */}
+            </Box>
 
         </div>
     );

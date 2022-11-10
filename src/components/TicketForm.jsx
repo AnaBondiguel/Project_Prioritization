@@ -52,6 +52,7 @@ function TicketForm(props) {
     effort_id: 1,
     selectedFile: "",
     feedback: "",
+    selectedTicketId: null,
   };
   // const {
   //     enableInitiative = false,
@@ -62,7 +63,7 @@ function TicketForm(props) {
   //     enableEffortId = true,
   //     enableSelectedFile = true,
   // } = props;
-
+  const [ticket, setTicket] = useState(null);
   const [formState, setFormState] = useState(initialFormState);
   const { dispatch, store } = useGlobalState();
   const { targets, impacts, confidences, efforts } = store;
@@ -118,6 +119,7 @@ function TicketForm(props) {
           navigate(`/mytickets/${id}`);
         })
         .catch((error) => console.log(error));
+
     } else {
       createTicket({ ...formState })
         .then((ticket) => {
@@ -128,6 +130,35 @@ function TicketForm(props) {
         .catch((error) => console.log(error));
     }
   }
+
+  // function saveClick(event) {
+  //   dispatch({
+  //     type: 'saveClick'
+  //   })
+  // }
+
+  //   updateTicket({ id: id, ...formState })
+  //       .then(() => {
+  //         dispatch({
+  //           type: "updateTicket",
+  //           data: { id: id, ...formState },
+  //         });
+  //         //if user update ticket with form, leave ticket to show on the page.
+  //         navigate(`/mytickets/${id}`);
+  //       })
+  //       .catch((error) => console.log(error));
+  // }
+
+  // function submitClick(event) {
+  //   event.preventDefault();
+  //        createTicket({ ...formState })
+  //       .then((ticket) => {
+  //         dispatch({ type: "addTicket", data: ticket });
+  //         //we can navigate back to the my tickets page once we create a ticket.
+  //         navigate("/submissionsuccess");
+  //       })
+  //       .catch((error) => console.log(error));
+  // }
 
   return (
     <Paper elevation={3}>
@@ -247,13 +278,23 @@ function TicketForm(props) {
       <Grid container spacing={1}>
         <Grid item xs={1}>
           <Button variant="contained" onClick={handleClick}>
-            Save
+              Save
           </Button>
         </Grid>
         <Grid item xs={1}>
           <Button variant="contained" color="success" onClick={handleClick}>
             {id ? "Update" : "Submit"}
           </Button>
+
+          {/* <Button name="" variant="contained" onClick={saveClick}>
+              Save
+          </Button>
+         
+        </Grid>
+        <Grid item xs={1}>
+          <Button variant="contained" color="success" onClick={submitClick}>
+             Submit
+          </Button>  */}
         </Grid>
       </Grid>
     </Paper>
