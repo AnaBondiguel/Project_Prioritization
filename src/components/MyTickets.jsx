@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Typography, List, ListItem, IconButton, Avatar } from "@mui/material";
+import { Typography, List, ListItem, Avatar, Button } from "@mui/material";
 import { deepPurple } from '@mui/material/colors';
 import { Link, useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/StateContext";
@@ -36,7 +36,7 @@ function MyTickets(){
         <div>
           {loggedInUser ? (
               <>
-              <Typography>My Tickets</Typography>
+              <Typography variant="h4" align="left">My Tickets</Typography>
               <List dense={dense}>
             
                   
@@ -63,7 +63,7 @@ function MyTickets(){
               
                 </List>
 
-                <button onClick={() => navigate("/newticket")}>Add Ticket</button>
+                <Button variant="outlined" onClick={() => navigate("/newticket")}>Add Ticket</Button>
               </>
             ) : (
               <>

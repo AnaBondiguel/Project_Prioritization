@@ -38,8 +38,8 @@ function Listings(){
         <div>
           {loggedInUser ? (
               <>
-              <Typography>All Submitted Tickets</Typography>
-
+              <Typography variant="h4" align="left">All Submitted Tickets</Typography>
+              
               <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

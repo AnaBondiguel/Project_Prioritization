@@ -149,7 +149,7 @@ function TicketForm(props) {
   
   return (
     <Paper elevation={3}>
-      <h1>New Ticket</h1>
+    <Typography variant="h4" align="left">New Ticket</Typography>
       <Grid container spacing={2} columns={16}>
         <Grid item xs={8}>
           <form>
