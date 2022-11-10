@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Button,Typography } from "@mui/material";
+import { Box, Button,Typography, Paper, Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteTicket, getTicket, updateTicket } from "../services/ticketServices";
 import { useGlobalState } from "../utils/StateContext";
@@ -31,19 +31,24 @@ const TicketDetails = () => {
 
     return (
         <div>
+            <Paper elevation={3}>
             <h1>Ticket Details</h1>
+            <Grid container spacing={2} columns={16}>
+                <Grid item xs={8}>
                 <h3>{ticket.initiative}</h3>
-                <p>Submited Data: {ticket.posted}</p>
-                <p>{ticket.description}</p>
-                <p>Username: {ticket.username}</p>
+                <p>Description: {ticket.description}</p>
                 <p>Target: {ticket.target}</p>
+                <p>Due Date: {ticket.dueDate}</p>
+                </Grid>
+            <Grid item xs={8}>
                 <p>Impact: {ticket.impact}</p>
                 <p>Confidence: {ticket.confidence}</p>
                 <p>Effort: {ticket.effort}</p>
-                <p>Due Date: {ticket.duedate}</p>
-                <p>Priority: {ticket.priority}</p>
                 <p>ICE Score: {ticket.ICE_Score}</p>
+                <p>Priority: {ticket.priority}</p>
                 <p>Feedback: {ticket.feedback}</p>
+                </Grid>
+                </Grid>
 
             <Box>
                 {/* {!id ? (
@@ -57,7 +62,7 @@ const TicketDetails = () => {
                     </>
                 )} */}
             </Box>
-
+            </Paper>
         </div>
     );
 }

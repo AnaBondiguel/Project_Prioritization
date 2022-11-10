@@ -227,17 +227,17 @@ function TicketForm(props) {
         <Grid item xs={8}>
           <form>
             <Typography>Impact:</Typography>
-            <select
+            <Select 
               name="impact_id"
               value={formState.impact_id}
               onChange={handleChange}
             >
               {impacts.map((impact) => (
-                <option key={impact.id} value={impact.id}>
+                <MenuItem key={impact.id} value={impact.id}>
                   {impact.name}
-                </option>
+                </MenuItem>
               ))}
-            </select>
+            </Select>
             <Typography>Confidence:</Typography>
             <Select
               name="confidence_id"
