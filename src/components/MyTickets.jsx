@@ -4,7 +4,6 @@ import { deepPurple } from '@mui/material/colors';
 import { Link, useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/StateContext";
 import { getTickets } from "../services/ticketServices";
-import DeleteIcon from '@mui/icons-material/Delete';
 
 function MyTickets(){
     let navigate = useNavigate();

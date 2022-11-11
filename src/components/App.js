@@ -14,11 +14,8 @@ import Header from "./Header";
 import { StateContext } from "../utils/StateContext"
 import reducer from "../utils/StateReducer";
 import { getTickets } from "../services/ticketServices";
-import { getTargets } from "../services/targetServices";
-import { getImpacts } from "../services/impactServices";
-import { getConfidences } from "../services/confidenceServices";
-import { getEfforts } from "../services/effortServices";
-// import EditTicket from './EditTicket';
+import { getTargets, getImpacts, getConfidences, getEfforts} from "../services/selectionServices";
+
 
 const sections = [
   {

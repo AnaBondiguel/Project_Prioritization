@@ -81,7 +81,7 @@ export default function reducer (state, action) {
         //         ...state,
         //         tickets: [action.data, ...updatedTicket]
         //     }   
-    
+        // }
         default: return state
 
     }

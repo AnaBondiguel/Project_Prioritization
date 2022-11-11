@@ -1,19 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  Grid,
-  MenuItem,
-  Typography,
-  Button,
-  Paper,
-  Select,
-  NativeSelect,
-} from "@mui/material";
+import { Grid, Typography, Button, Paper, NativeSelect } from "@mui/material";
 import { useGlobalState } from "../utils/StateContext";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import {
   createTicket,
   updateTicket,
-  saveTicket,
   getTicket,
 } from "../services/ticketServices";
 import FileBase from "react-file-base64";
@@ -46,14 +37,14 @@ function TicketForm(props) {
   const initialFormState = {
     initiative: "",
     description: "",
-    target_id: 1,
+    target: "",
     dueDate: "",
-    impact_id: 1,
-    confidence_id: 1,
-    effort_id: 1,
+    impact: "",
+    confidence: "",
+    effort: "",
     selectedFile: "",
     feedback: "",
-    selectedTicketId: null,
+    isSubmitted: false,
   };
   // const {
   //     enableInitiative = false,
@@ -104,14 +95,27 @@ function TicketForm(props) {
       ...formState,
       [event.target.name]: event.target.value,
     });
+    console.log(event.target.value);
+  }
+
+  function submitClick(event) {
+    event.preventDefault();
+    createTicket({ ...formState, isSubmitted: true })
+      .then((ticket) => {
+        dispatch({ type: "addTicket", data: ticket });
+        console.log(ticket);
+        //we can navigate back to the my tickets page once we create a ticket.
+        navigate("/submissionsuccess");
+      })
+      .catch((error) => console.log(error));
   }
 
   function handleClick(event) {
     event.preventDefault();
     //if statement to handle update ticket and create ticket
     if (id) {
-     updateTicket({ id: id, ...formState })
-         .then(() => {
+      updateTicket({ id: id, ...formState })
+        .then(() => {
           dispatch({
             type: "updateTicket",
             data: { id: id, ...formState },
@@ -120,36 +124,22 @@ function TicketForm(props) {
           navigate(`/mytickets/${id}`);
         })
         .catch((error) => console.log(error));
-
     } else {
       createTicket({ ...formState })
         .then((ticket) => {
           dispatch({ type: "addTicket", data: ticket });
           //we can navigate back to the my tickets page once we create a ticket.
-          navigate("/submissionsuccess");
+          navigate("/mytickets");
         })
         .catch((error) => console.log(error));
     }
   }
 
-  // function saveClick(event) {
-  //   if (id){event.preventDefault();
-  //   saveTicket({...formState })
-  //        .then(() => {
-  //         dispatch({
-  //           type: "saveTicket",
-  //           data: ticket,
-  //         });
-  //         //if user update ticket with form, leave ticket to show on the page.
-  //         navigate(`/mytickets/${id}`);
-  //       })
-  //       .catch((error) => console.log(error));
-  //     }
-  //   }
-  
   return (
     <Paper elevation={3}>
-    <Typography variant="h4" align="left">New Ticket</Typography>
+      <Typography variant="h4" align="left">
+        New Ticket
+      </Typography>
       <Grid container spacing={2} columns={16}>
         <Grid item xs={8}>
           <form>
@@ -171,12 +161,12 @@ function TicketForm(props) {
 
             <Typography>Target:</Typography>
             <NativeSelect
-              name="target_id"
-              value={formState.target_id}
+              name="target"
+              value={formState.target}
               onChange={handleChange}
             >
               {targets.map((target) => (
-                <option key={target.id} value={target.id}>
+                <option key={target.name} value={target.name}>
                   {target.name}
                 </option>
               ))}
@@ -214,41 +204,43 @@ function TicketForm(props) {
         <Grid item xs={8}>
           <form>
             <Typography>Impact:</Typography>
-            <Select 
-              name="impact_id"
-              value={formState.impact_id}
+            <NativeSelect
+              name="impact"
+              value={formState.impact}
               onChange={handleChange}
             >
               {impacts.map((impact) => (
-                <MenuItem key={impact.id} value={impact.id}>
+                <option key={impact.name} value={impact.name}>
                   {impact.name}
-                </MenuItem>
+                </option>
               ))}
-            </Select>
+            </NativeSelect>
+
             <Typography>Confidence:</Typography>
-            <Select
-              name="confidence_id"
-              value={formState.confidence_id}
+            <NativeSelect
+              name="confidence"
+              value={formState.confidence}
               onChange={handleChange}
             >
               {confidences.map((confidence) => (
-                <MenuItem key={confidence.id} value={confidence.id}>
+                <option key={confidence.name} value={confidence.name}>
                   {confidence.name}
-                </MenuItem>
+                </option>
               ))}
-            </Select>
+            </NativeSelect>
+
             <Typography>Effort:</Typography>
-            <Select
-              name="effort_id"
-              value={formState.effort_id}
+            <NativeSelect
+              name="effort"
+              value={formState.effort}
               onChange={handleChange}
             >
               {efforts.map((effort) => (
-                <MenuItem key={effort.id} value={effort.id}>
+                <option key={effort.name} value={effort.name}>
                   {effort.name}
-                </MenuItem>
+                </option>
               ))}
-            </Select>
+            </NativeSelect>
 
             <Typography>Feedback:</Typography>
             <textarea
@@ -264,16 +256,14 @@ function TicketForm(props) {
       {/* If id is in the url, that means we update the ticket. If id is not in the url, that means we create a new ticket. */}
       <Grid container spacing={1}>
         <Grid item xs={1}>
-          <Button variant="contained" onClick={handleClick}>
-              Save
+          <Button variant="contained" onClick={submitClick}>
+            Submit
           </Button>
         </Grid>
         <Grid item xs={1}>
           <Button variant="contained" color="success" onClick={handleClick}>
-            {id ? "Update" : "Submit"}
+            {id ? "Save" : "Update"}
           </Button>
-
- 
         </Grid>
       </Grid>
     </Paper>
