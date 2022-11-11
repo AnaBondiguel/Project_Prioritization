@@ -6,11 +6,11 @@ import { useGlobalState } from "../utils/StateContext";
 
     function SignUp(){
         const initialFormState = {
-            firstname: "",
-            lastname: "",
+            firstName: "",
+            lastName: "",
             email:"",
             password:"",
-            comfirmpassword:"",
+            comfirmPassword:"",
         };
         
         const [formState, setFormState] = useState(initialFormState);
@@ -46,15 +46,15 @@ import { useGlobalState } from "../utils/StateContext";
             <Container maxWidth="lg">
                 <Typography variant="h6" align="center" gutterBottom>
                     <h1>Sign Up</h1>
-                    <label>First Name:</label><input type="name" name="firstname" value={formState.firstname} onChange={handleChange}></input>
+                    <label>First Name:</label><input type="name" name="firstName" value={formState.firstName} onChange={handleChange}></input>
                         <br></br>  <br></br> 
-                    <label>Last Name:</label><input type="name" name="lastname" value={formState.lastname} onChange={handleChange}></input>
+                    <label>Last Name:</label><input type="name" name="lastName" value={formState.lastName} onChange={handleChange}></input>
                         <br></br>  <br></br> 
-                    <label>Email:</label><input type="email" name="email" value={formState.username} onChange={handleChange}></input>
+                    <label>Email:</label><input type="email" name="email" value={formState.email} onChange={handleChange}></input>
                         <br></br>  <br></br> 
                     <label>Password:</label><input type="password" name="password" value={formState.password} onChange={handleChange}></input>
                         <br></br>  <br></br> 
-                    <label>Comfirm Password:</label><input type="password" name="comfirmpassword" value={formState.comfirmpassword} onChange={handleChange}></input>
+                    <label>Comfirm Password:</label><input type="password" name="comfirmPassword" value={formState.comfirmPassword} onChange={handleChange}></input>
                         <br></br>  <br></br> 
                     <Button variant="contained" onClick={handleSubmit}>Sign up</Button>
                         <br></br> <br></br> 
