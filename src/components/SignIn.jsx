@@ -34,7 +34,8 @@ function SignIn(){
     //once user login, we save user detailed information in the store.
         login(formState)
         .then((data) => {
-            let username = data.username;
+            
+            let user = data.user;
             // user: { username, role }
             // const loggedInUser = sessionStorage.getItem('user')
             // ...
@@ -50,10 +51,11 @@ function SignIn(){
 
             return <TicketForm disabledFields={['priority']} />
             */
+           console.log(user)    
             let token = data.token;
             sessionStorage.setItem("token", token);
-            sessionStorage.setItem("user", username);
-            dispatch({ type: "setLoggedInUser", data: username });
+            sessionStorage.setItem("user", user);
+            dispatch({ type: "setLoggedInUser", data: user });
             dispatch({ type: "setToken", data: token });
             //go to home page
             navigate("/"); 
@@ -66,7 +68,7 @@ function SignIn(){
             <Container maxWidth="lg">
                 <Typography variant="h6" align="center" gutterBottom>
                     <h1>Sign In</h1>
-                    <label>Email:</label><input type="email" name="email" value={formState.username} onChange={handleChange}></input>
+                    <label>Email:</label><input type="email" name="email" value={formState.email} onChange={handleChange}></input>
                         <br></br> <br></br>
                     <label>Password:</label><input type="password" name="password" value={formState.password} onChange={handleChange}></input>
                         <br></br> <br></br>

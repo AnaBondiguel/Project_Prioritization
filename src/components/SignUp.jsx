@@ -29,7 +29,6 @@ function SignUp() {
   //setup submit button for sign up
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(event);
     register(formState).then((data) => {
       let user = data.user;
       let token = data.token;
@@ -37,7 +36,7 @@ function SignUp() {
       // set token in session storage later
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("user", user);
-      dispatch({ type: "setLoggedInUser", data: user });
+      dispatch({ type: "setLoggedInUser", data: [...user] });
       dispatch({ type: "setToken", data: token });
       navigate("/");
     });

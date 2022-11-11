@@ -17,7 +17,6 @@ const Header = () => {
       let navigate = useNavigate();
       const {store, dispatch} = useGlobalState();
       const {loggedInUser} = store;
-
     //setup a function to handle logout. We set login user in the token back to null when they log out.
       function handleLogout(event) {
         event.preventDefault();
@@ -37,78 +36,91 @@ const Header = () => {
       }
 
     //fetch ticket from http://localhost:3000/listings
-      useEffect(
-        () => {
-          function fetchTickets() {
-            const url = "http://localhost:3000/listings"; 
-            fetch(url)
-              .then((result) => {
-                return result.json();
-              })
-              .then((data) => {
-                const tickets = data // array
-                  .map((ticket) => ({
-                    initiative: ticket.initiative,
-                    description: ticket.description,
-                    target: ticket.target,
-                    ICEScore: ticket.ICEScore,
-                  }));
-                setData({
-                  ...data,
-                  tickets: tickets,
-                });
-              })
-              .catch((error) => {
-                console.log("Error!", error);
-              })
-              .finally(() => {
-                console.log("Fetch completed.");
-              });
-          }
+      // useEffect(
+      //   () => {
+      //     function fetchTickets() {
+      //       const url = "http://localhost:3000/listings"; 
+      //       fetch(url)
+      //         .then((result) => {
+      //           return result.json();
+      //         })
+      //         .then((data) => {
+      //           const tickets = data // array
+      //             .map((ticket) => ({
+      //               initiative: ticket.initiative,
+      //               description: ticket.description,
+      //               target: ticket.target,
+      //               ICEScore: ticket.ICEScore,
+      //             }));
+      //           setData({
+      //             ...data,
+      //             tickets: tickets,
+      //           });
+      //         })
+      //         .catch((error) => {
+      //           console.log("Error!", error);
+      //         })
+      //         .finally(() => {
+      //           console.log("Fetch completed.");
+      //         });
+      //     }
     
-          fetchTickets();
-        },
-        // only run on component did mount
-        []
-      );
+      //     fetchTickets();
+      //   },
+      //   // only run on component did mount
+      //   []
+      // );
 
     return (
-        <header>
-          <Grid container spacing={3}>
-                <Grid item xs>
-                    {/* <img src="" width="50" height="50" alt="logo"/> */}
+      <header>
+        <Grid container spacing={3}>
+          <Grid item xs>
+            {/* <img src="" width="50" height="50" alt="logo"/> */}
+          </Grid>
+          <Grid item xs={6}>
+            <label>Search: </label>
+            <input type="text" onChange={handleOnChange}></input>
+          </Grid>
+          <Grid item xs>
+            {loggedInUser ? (
+              <>
+                <Grid container spacing={1}>
+                  <Grid item xs={4}>
+                    <Typography m={2}>Hello, {loggedInUser.email}</Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Button variant="contained" onClick={handleLogout}>
+                      Logout
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                    <label>Search: </label><input type="text" onChange={handleOnChange}></input>
+              </>
+            ) : (
+              <>
+                <Grid container spacing={1}>
+                  <Grid item xs={4}>
+                    <Button
+                      variant="contained"
+                      onClick={() => navigate("/signin")}
+                    >
+                      Sign in
+                    </Button>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Button
+                      variant="contained"
+                      onClick={() => navigate("/signup")}
+                    >
+                      Sign up
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs>
-                  {loggedInUser ? (
-                      <>
-                        <Grid container spacing={1}>
-                          <Grid item xs={4}>
-                            <Typography m={2}>Hello, {loggedInUser}</Typography>
-                          </Grid>
-                          <Grid item xs={4}>
-                            <Button variant="contained" onClick={handleLogout}>Logout</Button>
-                          </Grid>
-                        </Grid>
-                      </>
-                    ) : (
-                      <>
-                      <Grid container spacing={1}>
-                        <Grid item xs={4}>
-                          <Button variant="contained" onClick={() => navigate("/signin")}>Sign in</Button>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Button variant="contained" onClick={() => navigate("/signup")}>Sign up</Button>
-                        </Grid>
-                      </Grid>
-                      </>
-                    )}
-                </Grid>
-            </Grid>
-        </header>
-    )
+              </>
+            )}
+          </Grid>
+        </Grid>
+      </header>
+    );
 }
 
 export default Header;
