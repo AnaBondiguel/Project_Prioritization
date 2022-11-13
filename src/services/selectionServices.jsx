@@ -26,6 +26,7 @@
 // }
 export async function getImpacts(){
     const impacts = [
+        {name:"?"},
         {name:"Small"},
         {name:"Medium"},
         {name:"Large"},
@@ -42,6 +43,7 @@ export async function getImpacts(){
 
 export async function getConfidences(){
     const confidences = [
+        {name:"?"},
         {name:"Small"},
         {name:"Medium"},
         {name:"Large"},
@@ -58,6 +60,7 @@ export async function getConfidences(){
 
 export async function getEfforts(){
     const efforts = [
+        {name:"?"},
         {name:"Small"},
         {name:"Medium"},
         {name:"Large"},
@@ -65,4 +68,17 @@ export async function getEfforts(){
     ]
 
     return efforts;
+}
+
+export async function priorityValue(){
+const priorityValue = [
+    "P-0", 
+    "P-1", 
+    "P-2", 
+    "P-3", 
+    "P-4", 
+    "P-5"
+];
+
+return priorityValue;
 }

@@ -43,7 +43,7 @@ function transformTicket(ticket) {
     effort: ticket.effort,
     dueDate: ticket.dueDate,
     ICE_Score: ticket.ICE_Score,
-    priority: ticket.priority,
+    priority: ticket.priorityValue,
     feedback: ticket.feedback,
   };
   return transformedTicket;

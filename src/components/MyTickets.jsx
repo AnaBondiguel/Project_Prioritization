@@ -63,8 +63,8 @@ function MyTickets() {
   const ticketsView =
     tickets && tickets.length > 0 ? (
       <TicketsList
-        tickets={tickets}
-        onTicketAddClick={() => navigate("/newticket")}
+        tickets={tickets}  
+        onAddTicketClick={() => navigate("/newticket")}
       />
     ) : (
       <Typography variant="h4" align="left">

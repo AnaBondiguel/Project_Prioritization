@@ -3,7 +3,7 @@ import { Box, Button,Typography, Paper, Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteTicket, getTicket, updateTicket } from "../services/ticketServices";
 import { useGlobalState } from "../utils/StateContext";
-  
+
 const TicketDetails = () => {
     const [ticket, setTicket] = useState(null);
     let navigate = useNavigate();
@@ -20,13 +20,11 @@ const TicketDetails = () => {
       }
 //when the page is loaded, we can fetch the ticket by its given id. If id is changed, we can fetch the ticket.
     	useEffect(() => {
-            console.log("is updated")
-            console.log(ticket)
-        
+            // console.log(ticket)
             getTicket(_id)
             .then((ticket) => setTicket(ticket))
             .catch((error) => console.log(error))
-	    },[])
+	    },[_id])
 
     // console.log("hello")
     // console.log(_id)
@@ -48,8 +46,8 @@ const TicketDetails = () => {
                 <p>Impact: {ticket.impact}</p>
                 <p>Confidence: {ticket.confidence}</p>
                 <p>Effort: {ticket.effort}</p>
-                {/* <p>ICE Score: {ticket.ICE_Score}</p>
-                <p>Priority: {ticket.priority}</p> */}
+                <p>ICE Score: {ticket.ICE_Score}</p>
+                <p>Priority: {ticket.priorityValue}</p> 
                 <p>Feedback: {ticket.feedback}</p>
                 </Grid>
                 </Grid>

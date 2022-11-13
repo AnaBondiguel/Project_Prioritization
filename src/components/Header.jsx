@@ -37,40 +37,40 @@ const Header = () => {
       }
 
     //fetch ticket from http://localhost:3000/listings
-      // useEffect(
-      //   () => {
-      //     function fetchTickets() {
-      //       const url = "http://localhost:3000/listings"; 
-      //       fetch(url)
-      //         .then((result) => {
-      //           return result.json();
-      //         })
-      //         .then((data) => {
-      //           const tickets = data // array
-      //             .map((ticket) => ({
-      //               initiative: ticket.initiative,
-      //               description: ticket.description,
-      //               target: ticket.target,
-      //               ICEScore: ticket.ICEScore,
-      //             }));
-      //           setData({
-      //             ...data,
-      //             tickets: tickets,
-      //           });
-      //         })
-      //         .catch((error) => {
-      //           console.log("Error!", error);
-      //         })
-      //         .finally(() => {
-      //           console.log("Fetch completed.");
-      //         });
-      //     }
+      useEffect(
+        () => {
+          function fetchTickets() {
+            const url = "http://localhost:3000/listings"; 
+            fetch(url)
+              .then((result) => {
+                return result.json();
+              })
+              .then((data) => {
+                const tickets = data // array
+                  .map((ticket) => ({
+                    initiative: ticket.initialtive,
+                    description: ticket.description,
+                    target: ticket.target,
+                    ICE_Score: ticket.ICE_Score,
+                  }));
+                setData({
+                  ...data,
+                  tickets: tickets,
+                });
+              })
+              .catch((error) => {
+                console.log("Error!", error);
+              })
+              .finally(() => {
+                console.log("Fetch completed.");
+              });
+          }
     
-      //     fetchTickets();
-      //   },
-      //   // only run on component did mount
-      //   []
-      // );
+          fetchTickets();
+        },
+        // only run on component did mount
+        []
+      );
 
     return (
       <header>
