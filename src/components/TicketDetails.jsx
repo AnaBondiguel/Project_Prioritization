@@ -5,13 +5,10 @@ import { deleteTicket, getTicket, updateTicket } from "../services/ticketService
 import { useGlobalState } from "../utils/StateContext";
   
 const TicketDetails = () => {
-  
     const [ticket, setTicket] = useState(null);
     let navigate = useNavigate();
     const { id } = useParams();
     const { dispatch } = useGlobalState();
-
-
 
 //setup onClick for delete button 
     function handleDelete() {
@@ -25,6 +22,8 @@ const TicketDetails = () => {
 		getTicket(id)
 		.then((ticket) => setTicket(ticket))
 		.catch((error) => console.log(error))
+
+        console.log(getTicket)
 	},[id])
 
     if (!ticket) return null;
@@ -35,7 +34,7 @@ const TicketDetails = () => {
             <h1>Ticket Details</h1>
             <Grid container spacing={2} columns={16}>
                 <Grid item xs={8}>
-                <h3>{ticket.initiative}</h3>
+                <h3>{ticket.initialtive}</h3>
                 <p>Description: {ticket.description}</p>
                 <p>Target: {ticket.target}</p>
                 <p>Due Date: {ticket.dueDate}</p>
@@ -44,8 +43,8 @@ const TicketDetails = () => {
                 <p>Impact: {ticket.impact}</p>
                 <p>Confidence: {ticket.confidence}</p>
                 <p>Effort: {ticket.effort}</p>
-                <p>ICE Score: {ticket.ICE_Score}</p>
-                <p>Priority: {ticket.priority}</p>
+                {/* <p>ICE Score: {ticket.ICE_Score}</p>
+                <p>Priority: {ticket.priority}</p> */}
                 <p>Feedback: {ticket.feedback}</p>
                 </Grid>
                 </Grid>
@@ -68,3 +67,18 @@ const TicketDetails = () => {
 }
 
 export default TicketDetails;
+
+// export const getSingleTicket = async (req, res) => {
+//     const { id } = req.params;
+//     // * check params id is valid mongoose objective id
+//     if (!mongoose.Types.ObjectId.isValid(id)) {
+//       return res.status(404).json({ error: "No such Ticket" });
+//     }
+  
+//     try {
+//       const ticket = await Ticket.findById(id).populate("author");
+//       res.status(200).json(ticket);
+//     } catch (err) {
+//       res.status(404).json({ message: err.message });
+//     }
+//   };

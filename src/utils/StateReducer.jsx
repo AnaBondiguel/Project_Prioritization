@@ -33,7 +33,7 @@ export default function reducer (state, action) {
         case 'addTicket': {
             return {
                 ...state,
-                tickets: [action.data, ...state.tickets]
+                tickets: [action.data, ...(state.tickets || [])]
             }
         }
         case 'deleteTicket': {
@@ -74,14 +74,6 @@ export default function reducer (state, action) {
                 }
             }
         }
-        // case 'saveTicket': {
-        //     const ticket = state.tickets.find((ticket) => ticket.id == action.data.id)
-        //     const updatedTicket = Object.assign(ticket, action.data) 
-        //     return {
-        //         ...state,
-        //         tickets: [action.data, ...updatedTicket]
-        //     }   
-        // }
         default: return state
 
     }

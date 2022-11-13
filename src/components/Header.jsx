@@ -23,7 +23,8 @@ const Header = () => {
         logout().then(() => {
             dispatch({type: "setLoggedInUser", data: null});
             dispatch({type: "setToken", data: null});
-    
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('token');
         })
       }
 

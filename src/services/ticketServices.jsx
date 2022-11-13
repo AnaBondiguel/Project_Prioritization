@@ -35,7 +35,7 @@ import projectAPI from "../config/api";
 function transformTicket(ticket) {
  let transformedTicket = {
     author: ticket.username,
-    initiative: ticket.initiative,
+    initialtive: ticket.initialtive,
     description: ticket.description,
     target: ticket.target,
     impact: ticket.impact,
@@ -51,7 +51,7 @@ function transformTicket(ticket) {
 
 //get all tickets
 export async function getTickets() {
-  const response = await projectAPI.get('/api/tickets');
+  const response = await projectAPI.get('/api/tickets/myTickets');
   return response.data;
   // return tickets;
 }
@@ -85,7 +85,7 @@ export async function deleteTicket(id) {
 export async function updateTicket(ticket) {
    //return ticket;
   let updatedTicket = {
-    initiative: ticket.initiative,
+    initiative: ticket.initialtive,
 		description: ticket.description,
     target: ticket.target,
     impact: ticket.impact,

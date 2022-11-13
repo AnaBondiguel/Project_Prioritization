@@ -55,13 +55,13 @@ function Listings(){
               {tickets.map((ticket, index) => {
                 return (
                     <TableRow
-                    key={ticket.initiative}
+                    key={ticket.initialtive}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                         <TableCell align="left">{ticket.priority} </TableCell>
 
                     <Link key={ticket.id} to={`/mytickets/${ticket.id}`}>
-                        <TableCell align="right">{ticket.initiative} </TableCell>
+                        <TableCell align="right">{ticket.initialtive} </TableCell>
                     </Link>
 
                         <TableCell align="left">{ticket.target} </TableCell>
