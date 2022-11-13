@@ -39,7 +39,6 @@ export default function reducer (state, action) {
         case 'deleteTicket': {
             const updatedTickets = state.tickets.filter((ticket) => {
                 return ticket.id !== parseInt(action.data)
-                // selectedTicketId: action.data
             })
             return {
                 ...state,

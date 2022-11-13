@@ -49,12 +49,20 @@ function transformTicket(ticket) {
   return transformedTicket;
 }
 
-//get all tickets
+//get my tickets
 export async function getTickets() {
   const response = await projectAPI.get('/api/tickets/myTickets');
   return response.data;
   // return tickets;
 }
+
+//get all the tickets
+export async function getAllTickets() {
+  const response = await projectAPI.get('/api/tickets/submitted');
+  return response.data;
+  // return tickets;
+}
+
 
 //get a single ticket
 export async function getTicket(id) {

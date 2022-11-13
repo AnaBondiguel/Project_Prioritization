@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useGlobalState } from "../utils/StateContext";
-import { getTickets } from "../services/ticketServices";
+import { getTickets, getAllTickets } from "../services/ticketServices";
 import DeleteIcon from '@mui/icons-material/Delete';
 // import { handleDelete } from "./TicketDetails";
 
@@ -22,7 +22,7 @@ function Listings(){
 
       // console.log("tickets at top:", tickets)
       if(!tickets){
-        getTickets() 
+        getAllTickets() 
         .then(tickets => {
           // console.log("tickets inside:", tickets)
           dispatch ({type: "setTickets", data: tickets})
@@ -60,7 +60,7 @@ function Listings(){
                   >
                         <TableCell align="left">{ticket.priority} </TableCell>
 
-                    <Link key={ticket.id} to={`/mytickets/${ticket.id}`}>
+                    <Link key={ticket._id} to={`/mytickets/${ticket._id}`}>
                         <TableCell align="right">{ticket.initialtive} </TableCell>
                     </Link>
 

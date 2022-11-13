@@ -6,6 +6,7 @@ import { useGlobalState } from "../utils/StateContext";
 import { getTickets } from "../services/ticketServices";
 
 function TicketsList({ tickets, onAddTicketClick }) {
+  console.log(tickets)
   return (
     <>
       <Typography variant="h4" align="left">
@@ -20,7 +21,7 @@ function TicketsList({ tickets, onAddTicketClick }) {
                 {ticket.priority}
               </Avatar>
 
-              <Link key={ticket.id} to={`/mytickets/${ticket.id}`}>
+              <Link key={ticket._id} to={`/mytickets/${ticket._id}`}>
                 <Typography>
                   Initative: {ticket.initialtive} & ICE Score: {ticket.ICE_Score}
                 </Typography>

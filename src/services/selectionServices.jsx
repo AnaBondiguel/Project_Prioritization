@@ -1,7 +1,8 @@
-// import projectAPI from "../config/api";
+//  import projectAPI from "../config/api";
 
 // export async function getTargets() {
-//   const response = await projectAPI.get('/api/targets');
+//   const response = await projectAPI.get('/api/tickets/target');
+//   console.log(response)
 //   return response.data;
 // }
 
@@ -20,7 +21,7 @@
 
 
 // export async function getImpacts() {
-//   const response = await projectAPI.get('/api/impacts');
+//   const response = await projectAPI.get('/api/tickets/impact');
 //   return response.data;
 // }
 export async function getImpacts(){
@@ -35,7 +36,7 @@ export async function getImpacts(){
 }
 
 // export async function getConfidences() {
-//   const response = await projectAPI.get('/api/confidences');
+//   const response = await projectAPI.get('/api/tickets/confidence');
 //   return response.data;
 // }
 
@@ -51,7 +52,7 @@ export async function getConfidences(){
 }
 
 // export async function getEfforts() {
-//   const response = await projectAPI.get('/api/efforts');
+//   const response = await projectAPI.get('/api/tickets/effort');
 //   return response.data;
 // }
 

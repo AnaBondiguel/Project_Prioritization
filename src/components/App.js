@@ -102,7 +102,7 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route path="searchresults" element={<SearchResults />} />
           <Route path="submissionsuccess" element={<SubmissionSuccess />} />
-          <Route path="mytickets/:id" element={<TicketDetails  />} />
+          <Route path="mytickets/:_id" element={<TicketDetails  />} />
           {/* <Route path="mytickets/update/:id" element={<EditTicket  />} /> */}
          
           {/* <Route path="*" element={<NotFound />} /> */}

@@ -62,7 +62,7 @@ function TicketForm(props) {
   const { targets, impacts, confidences, efforts } = store;
   const [dateValue, setDateValue] = React.useState(null); //for date picker
 
-  let { id } = useParams();
+  let { _id } = useParams();
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -107,16 +107,16 @@ function TicketForm(props) {
     return (event) => {
       event.preventDefault();
       //if statement to handle update ticket and create ticket
-      if (id) {
+      if (_id) {
         // from saved ticket to submitted
-        updateTicket({ id: id, ...formState, isSubmitted: isSubmitted, })
+        updateTicket({ _id: _id, ...formState, isSubmitted: isSubmitted, })
           .then(() => {
             dispatch({
               type: "updateTicket",
-              data: { id: id, ...formState, isSubmitted: isSubmitted, },
+              data: { _id: _id, ...formState, isSubmitted: isSubmitted, },
             });
             //if user update ticket with form, leave ticket to show on the page.
-            navigate(`/mytickets/${id}`);
+            navigate(`/mytickets/${_id}`);
           })
           .catch((error) => console.log(error));
       } else {

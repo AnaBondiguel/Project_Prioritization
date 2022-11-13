@@ -7,26 +7,31 @@ import { useGlobalState } from "../utils/StateContext";
 const TicketDetails = () => {
     const [ticket, setTicket] = useState(null);
     let navigate = useNavigate();
-    const { id } = useParams();
+    const { _id } = useParams();
     const { dispatch } = useGlobalState();
+    
 
 //setup onClick for delete button 
     function handleDelete() {
-        deleteTicket(id).then(() => {
-          dispatch({ type: "deleteTicket", data: id });
+        deleteTicket(_id).then(() => {
+          dispatch({ type: "deleteTicket", data: _id });
           navigate('/mytickets');
         });
       }
 //when the page is loaded, we can fetch the ticket by its given id. If id is changed, we can fetch the ticket.
-	useEffect(() => {
-		getTicket(id)
-		.then((ticket) => setTicket(ticket))
-		.catch((error) => console.log(error))
+    	useEffect(() => {
+            console.log("is updated")
+            console.log(ticket)
+        
+            getTicket(_id)
+            .then((ticket) => setTicket(ticket))
+            .catch((error) => console.log(error))
+	    },[])
 
-        console.log(getTicket)
-	},[id])
+    // console.log("hello")
+    // console.log(_id)
 
-    if (!ticket) return null;
+      if (!ticket) return null;
 
     return (
         <div>
@@ -50,16 +55,8 @@ const TicketDetails = () => {
                 </Grid>
 
             <Box>
-                {/* {!id ? (
-                    <> */}
-                        <Button onClick={() => navigate(`/mytickets/update/${id}`, { state: ticket })}>Edit</Button>
-                        <Button onClick={handleDelete}>Delete</Button>
-                    {/* </>
-                    ) : (
-                    <>
-                         <Typography>You have already submitted the ticket!</Typography>
-                    </>
-                )} */}
+                <Button onClick={() => navigate(`/mytickets/update/${_id}`, { state: ticket })}>Edit</Button>
+                <Button onClick={handleDelete}>Delete</Button>
             </Box>
             </Paper>
         </div>
@@ -67,18 +64,3 @@ const TicketDetails = () => {
 }
 
 export default TicketDetails;
-
-// export const getSingleTicket = async (req, res) => {
-//     const { id } = req.params;
-//     // * check params id is valid mongoose objective id
-//     if (!mongoose.Types.ObjectId.isValid(id)) {
-//       return res.status(404).json({ error: "No such Ticket" });
-//     }
-  
-//     try {
-//       const ticket = await Ticket.findById(id).populate("author");
-//       res.status(200).json(ticket);
-//     } catch (err) {
-//       res.status(404).json({ message: err.message });
-//     }
-//   };
