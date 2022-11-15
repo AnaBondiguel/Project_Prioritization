@@ -14,7 +14,7 @@ import Header from "./Header";
 import { StateContext } from "../utils/StateContext"
 import reducer from "../utils/StateReducer";
 import { getTickets } from "../services/ticketServices";
-import { getTargets, getImpacts, getConfidences, getEfforts} from "../services/selectionServices";
+import { getTargets, getImpacts, getConfidences, getEfforts, dueDate} from "../services/selectionServices";
 
 
 const sections = [
@@ -35,6 +35,7 @@ function App() {
     impacts: [],
     confidences: [],
     efforts: [],
+    // dueDate: [],
     tickets: null,
     loggedInUser: sessionStorage.getItem("user") || null,
     auth: sessionStorage.getItem("token") || null,
@@ -77,6 +78,12 @@ function App() {
       )
       .catch((error) => console.log(error));
 
+      // dueDate()
+      // .then((dueDate) =>
+      //   dispatch({ type: "setdueDate", data: dueDate })
+      // )
+      // .catch((error) => console.log(error));
+
 
   }, [loggedInUser]);
 
@@ -96,7 +103,7 @@ function App() {
           {/* { store.user.role === 'manager' ? <Route path="editticket" element={<NewTicket enableInitiative={false} /> : 
           <Route path="editticket" element={<NewTicket />} */}
           {/* <Route path="editticket" element={<NewTicket enableInitiative={false} />} /> */}
-          <Route path="mytickets/update/:id" element={<TicketForm />} />
+          <Route path="mytickets/update/:_id" element={<TicketForm />} />
           <Route path="listings" element={<Listings />} />
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />

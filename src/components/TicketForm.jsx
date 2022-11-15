@@ -14,6 +14,9 @@ import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { v4 as uuidv4 } from 'uuid';
+// import DatePicker from 'react-datepicker';
+// import "react-datepicker/dist/react-datepicker.css";
+
 
 /**
  * TicketForm is also used for the edit page
@@ -56,27 +59,17 @@ function TicketForm(props) {
   //     enableEffortId = true,
   //     enableSelectedFile = true,
   // } = props;
-  // const [ticket, setTicket] = useState(null);
+ 
   const [formState, setFormState] = useState(initialFormState);
   const { dispatch, store } = useGlobalState();
   const { targets, impacts, confidences, efforts } = store;
   const [dateValue, setDateValue] = React.useState(null); //for date picker
+  // const [selectedDate, setSelectedDate] = React.useState(null);
 
   let { _id } = useParams();
   let navigate = useNavigate();
 
   useEffect(() => {
-    // if (id) {
-    //   getTicket(id).then((ticket) => {
-    //     const target = targets.find(
-    //       (target) => target.name.toLowerCase() === ticket.target.toLowerCase()
-    //     );
-    //     setFormState({
-    //       target_id: target.id,
-    //       description: ticket.description,
-    //     });
-    //   });
-    // }
     // /tickets/new
     // location.state = undefined
     // setFormState(undefined)
@@ -84,14 +77,18 @@ function TicketForm(props) {
 
     // state = initialFormState
     setFormState((state) => {
+      console.log(formState.dueDate)
       return {
         ...state, // this is the initialFormState
         ...location.state, // this is the ticket details
       };
     });
+    
   }, [location.state]);
 
+
   function handleChange(event) {
+    // console.log("Event is: " + JSON.stringify(event))
     setFormState({
       ...formState,
       [event.target.name]: event.target.value,
@@ -104,28 +101,32 @@ function TicketForm(props) {
   // updateTicket -> PUT /api/tickets
   // createTicket -> POST /api/tickets
   function handleClick({ isSubmitted = false }) {
+    console.log(_id)
     return (event) => {
       event.preventDefault();
       //if statement to handle update ticket and create ticket
+      console.log(_id)
       if (_id) {
         // from saved ticket to submitted
-        updateTicket({ _id: _id, ...formState, isSubmitted: isSubmitted, })
+        updateTicket({ id: _id, ...formState, isSubmitted: isSubmitted })
           .then(() => {
             dispatch({
               type: "updateTicket",
-              data: { _id: _id, ...formState, isSubmitted: isSubmitted, },
+              data: { id: _id, ...formState, isSubmitted: isSubmitted },
             });
             //if user update ticket with form, leave ticket to show on the page.
             navigate(`/mytickets/${_id}`);
           })
           .catch((error) => console.log(error));
+
       } else {
         // from creation to submitted
-        createTicket({ ...formState, ticket_id: uuidv4(), isSubmitted: isSubmitted })
+         createTicket({ ...formState, ticket_id: uuidv4(), isSubmitted: isSubmitted })
           .then((ticket) => {
             dispatch({ type: "addTicket", data: ticket });
             //we can navigate back to the my tickets page once we create a ticket.
             isSubmitted ? navigate('/submissionsuccess') : navigate("/mytickets");
+            console.log(ticket)
           })
           .catch((error) => console.log(error));
       }
@@ -169,17 +170,68 @@ function TicketForm(props) {
               ))}
             </NativeSelect>
 
-            <Typography>Due Date:</Typography>
+            {/* <Typography>Target Launch</Typography>
+            <DatePicker
+              selected={selectedDate}
+              onChange={date => setSelectedDate(date)}
+              dateFormat="dd/MM/yyyy"
+            /> */}
+            {/* <Typography>Target Launch :</Typography>
+            <NativeSelect
+              name="dueDate"
+              value={formState.dueDate}
+              onChange={handleChange}
+            >
+                {dueDate.map((date) => (
+                <option key={date.name} value={date.name}>
+                  {date.name}
+                </option>
+              ))}
+            </NativeSelect> */}
+
+     {/* <Typography>Target Launch :</Typography>
+            <NativeSelect
+              name="dueDate"
+              value={formState.dueDate}
+              onChange={handleChange}
+            >
+                {dueDate.map((date) => (
+                <option key={date.name} value={date.name}>
+                  {date.name}
+                </option>
+              ))}
+            </NativeSelect> */}
+<br></br> <br></br>
+          <Typography>Due Date</Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label="Due date"
+                name="dueDate"
                 value={dateValue}
+                // onChange={handleChange}
                 onChange={(newValue) => {
+                  // handleChange({
+                  //    target: {
+                  //     name: 'dueDate',
+                  //     value: newValue.toLocaleString()
+                  //    }
+
+                  // })
                   setDateValue(newValue);
+                  console.log("new date: " + newValue)
                 }}
-                renderInput={(params) => <TextField {...params} />}
+                
+                renderInput={(params) => 
+                <TextField {...params} 
+                label="Due date"
+                name="dueDate"
+                value={dateValue}
+                onChange={handleChange}
+                />}
               />
-            </LocalizationProvider>
+            
+            </LocalizationProvider> 
+            
 
             {/* <Typography>Upload files:</Typography>
             <input
@@ -253,7 +305,7 @@ function TicketForm(props) {
       {/* If id is in the url, that means we update the ticket. If id is not in the url, that means we create a new ticket. */}
       <Grid container spacing={1}>
         <Grid item xs={1}>
-          <Button variant="contained" color="warning" onClick={handleClick({ isSubmitted: false })}>
+          <Button variant="contained" color="warning" onClick={handleClick({ isSubmitted: false, _id: _id })}>
             Save
           </Button>
         </Grid>

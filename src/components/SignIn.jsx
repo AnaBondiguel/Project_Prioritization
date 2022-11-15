@@ -57,6 +57,7 @@ function SignIn(){
             sessionStorage.setItem("user", user);
             dispatch({ type: "setLoggedInUser", data: user });
             dispatch({ type: "setToken", data: token });
+            
             //go to home page
             navigate("/"); 
       })

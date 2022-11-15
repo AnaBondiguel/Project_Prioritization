@@ -1,5 +1,11 @@
 export default function reducer (state, action) {
     switch(action.type) {
+        // case 'setdueDate':{
+        //     return {
+        //         ...state,
+        //         dueDate: action.data
+        //     }
+        // }
         case 'setTargets': {
             return {
                 ...state,
@@ -46,7 +52,9 @@ export default function reducer (state, action) {
             }
         }
         case 'updateTicket': {
-            const ticket = state.tickets.find((ticket) => ticket.id == action.data.id)
+            console.log(action.data)
+            console.log(state.tickets)
+            const ticket = state.tickets.find((ticket) => ticket._id == action.data.id)
             console.log(ticket)
             console.log(action.data)
             const updatedTicket = Object.assign(ticket, action.data)       

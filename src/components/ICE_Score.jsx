@@ -27,3 +27,5 @@ function iceScoreCalculation(impactVar, confidenceVar, effortVar) {
 
     export default iceScoreCalculation;
          
+
+   

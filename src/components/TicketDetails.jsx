@@ -16,8 +16,12 @@ const TicketDetails = () => {
         deleteTicket(_id).then(() => {
           dispatch({ type: "deleteTicket", data: _id });
           navigate('/mytickets');
+        //   console.log("hello, ana")
+        //   console.log(_id)
+          
         });
       }
+
 //when the page is loaded, we can fetch the ticket by its given id. If id is changed, we can fetch the ticket.
     	useEffect(() => {
             // console.log(ticket)
@@ -26,11 +30,10 @@ const TicketDetails = () => {
             .catch((error) => console.log(error))
 	    },[_id])
 
-    // console.log("hello")
-    // console.log(_id)
+    console.log("hello")
+    console.log(_id)
 
       if (!ticket) return null;
-
     return (
         <div>
             <Paper elevation={3}>
@@ -40,7 +43,7 @@ const TicketDetails = () => {
                 <h3>{ticket.initialtive}</h3>
                 <p>Description: {ticket.description}</p>
                 <p>Target: {ticket.target}</p>
-                <p>Due Date: {ticket.dueDate}</p>
+                <p>Target Launch: {ticket.dueDate}</p>
                 </Grid>
             <Grid item xs={8}>
                 <p>Impact: {ticket.impact}</p>
