@@ -45,11 +45,12 @@ const Header = () => {
               .then((result) => {
                 return result.json();
               })
+              console.log(result)
               .then((data) => {
-                const tickets = data // array
+                const tickets = data.results // array
                   .map((ticket) => ({
                     initiative: ticket.initialtive,
-                    description: ticket.description,
+                    // description: ticket.description,
                     target: ticket.target,
                     ICE_Score: ticket.ICE_Score,
                   }));
@@ -65,7 +66,6 @@ const Header = () => {
                 console.log("Fetch completed.");
               });
           }
-    
           fetchTickets();
         },
         // only run on component did mount

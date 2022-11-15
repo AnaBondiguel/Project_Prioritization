@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { getFilteredProjects } from './Header';
 import {Link} from "react-router-dom";
 
   function SearchResults(){
