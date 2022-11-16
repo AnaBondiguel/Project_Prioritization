@@ -4,6 +4,7 @@ import { deepPurple } from "@mui/material/colors";
 import { Link, useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/StateContext";
 import { getTickets } from "../services/ticketServices";
+import iceScoreCalculation from "./ICE_Score";
 
 function TicketsList({ tickets, onAddTicketClick }) {
   console.log(tickets)
@@ -23,7 +24,15 @@ function TicketsList({ tickets, onAddTicketClick }) {
 
               <Link key={ticket._id} to={`/mytickets/${ticket._id}`}>
                 <Typography>
-                  Initative: {ticket.initialtive} & ICE Score: {ticket.ICE_Score}
+                  Initative: {ticket.initialtive} & 
+                 
+                  ICE Score:
+                      {iceScoreCalculation(
+                          ticket.impact,
+                          ticket.confidence,
+                          ticket.effort
+                      )}
+                
                 </Typography>
               </Link>
             </ListItem>
@@ -58,7 +67,7 @@ function MyTickets() {
         })
         .catch((error) => console.log(error));
     // }
-  }, [dispatch, tickets, loggedInUser]);
+  }, [dispatch, loggedInUser]);
 
   const ticketsView =
     tickets && tickets.length > 0 ? (

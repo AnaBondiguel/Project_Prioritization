@@ -5,7 +5,6 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import {
   createTicket,
   updateTicket,
-  getTicket,
 } from "../services/ticketServices";
 import FileBase from "react-file-base64";
 
@@ -47,7 +46,6 @@ function TicketForm(props) {
     confidence: "",
     effort: "",
     // selectedFile: "",
-    feedback: "",
     // isSubmitted: false,
   };
   // const {
@@ -108,11 +106,11 @@ function TicketForm(props) {
       console.log(_id)
       if (_id) {
         // from saved ticket to submitted
-        updateTicket({ id: _id, ...formState, isSubmitted: isSubmitted })
+        updateTicket({ id: _id, ...formState, isSubmitted: isSubmitted,  dueDate: dateValue})
           .then(() => {
             dispatch({
               type: "updateTicket",
-              data: { id: _id, ...formState, isSubmitted: isSubmitted },
+              data: { id: _id, ...formState, isSubmitted: isSubmitted,  dueDate: dateValue },
             });
             //if user update ticket with form, leave ticket to show on the page.
             navigate(`/mytickets/${_id}`);
@@ -121,7 +119,7 @@ function TicketForm(props) {
 
       } else {
         // from creation to submitted
-         createTicket({ ...formState, ticket_id: uuidv4(), isSubmitted: isSubmitted })
+         createTicket({ ...formState, ticket_id: uuidv4(), isSubmitted: isSubmitted,  dueDate: dateValue })
           .then((ticket) => {
             dispatch({ type: "addTicket", data: ticket });
             //we can navigate back to the my tickets page once we create a ticket.
@@ -170,65 +168,17 @@ function TicketForm(props) {
               ))}
             </NativeSelect>
 
-            {/* <Typography>Target Launch</Typography>
-            <DatePicker
-              selected={selectedDate}
-              onChange={date => setSelectedDate(date)}
-              dateFormat="dd/MM/yyyy"
-            /> */}
-            {/* <Typography>Target Launch :</Typography>
-            <NativeSelect
-              name="dueDate"
-              value={formState.dueDate}
-              onChange={handleChange}
-            >
-                {dueDate.map((date) => (
-                <option key={date.name} value={date.name}>
-                  {date.name}
-                </option>
-              ))}
-            </NativeSelect> */}
-
-     {/* <Typography>Target Launch :</Typography>
-            <NativeSelect
-              name="dueDate"
-              value={formState.dueDate}
-              onChange={handleChange}
-            >
-                {dueDate.map((date) => (
-                <option key={date.name} value={date.name}>
-                  {date.name}
-                </option>
-              ))}
-            </NativeSelect> */}
 <br></br> <br></br>
           <Typography>Due Date</Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                label="Due date"
-                name="dueDate"
-                value={dateValue}
-                // onChange={handleChange}
-                onChange={(newValue) => {
-                  // handleChange({
-                  //    target: {
-                  //     name: 'dueDate',
-                  //     value: newValue.toLocaleString()
-                  //    }
-
-                  // })
-                  setDateValue(newValue);
-                  console.log("new date: " + newValue)
-                }}
-                
-                renderInput={(params) => 
-                <TextField {...params} 
-                label="Due date"
-                name="dueDate"
-                value={dateValue}
-                onChange={handleChange}
-                />}
-              />
+               <DatePicker
+                 value={dateValue}
+                 label="dueDate"
+                 onChange={(v)=>{
+                   setDateValue(v)
+                 } }
+                 renderInput={(params) => <TextField {...params} />}
+               />
             
             </LocalizationProvider> 
             
@@ -290,14 +240,6 @@ function TicketForm(props) {
                 </option>
               ))}
             </NativeSelect>
-
-            <Typography>Feedback:</Typography>
-            <textarea
-              type="text"
-              name="feedback"
-              value={formState.feedback}
-              onChange={handleChange}
-            ></textarea>
           </form>
         </Grid>
       </Grid>

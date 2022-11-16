@@ -6,6 +6,12 @@ export default function reducer (state, action) {
         //         dueDate: action.data
         //     }
         // }
+        case 'setFilteredTickets': {
+            return {
+                ...state,
+                filteredTickets: action.data
+            }
+        }
         case 'setTargets': {
             return {
                 ...state,

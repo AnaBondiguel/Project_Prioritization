@@ -3,13 +3,27 @@ import { Box, Button,Typography, Paper, Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteTicket, getTicket, updateTicket } from "../services/ticketServices";
 import { useGlobalState } from "../utils/StateContext";
+import dateFormat from "dateformat";
+import iceScoreCalculation from "./ICE_Score";
 
 const TicketDetails = () => {
+    const initialFeedbackState = {
+       feedback: "",
+      };
+    const [feedbackState, setFeedbackState] = useState(initialFeedbackState);
+
     const [ticket, setTicket] = useState(null);
     let navigate = useNavigate();
     const { _id } = useParams();
     const { dispatch } = useGlobalState();
     
+    function handleChange(event) {
+        // console.log("Event is: " + JSON.stringify(event))
+        setFeedbackState({
+          ...feedbackState,
+          [event.target.name]: event.target.value,
+        });
+      }
 
 //setup onClick for delete button 
     function handleDelete() {
@@ -43,22 +57,40 @@ const TicketDetails = () => {
                 <h3>{ticket.initialtive}</h3>
                 <p>Description: {ticket.description}</p>
                 <p>Target: {ticket.target}</p>
-                <p>Target Launch: {ticket.dueDate}</p>
+                <p>Target Launch: {dateFormat(ticket.dueDate, "ddd, mmm dS, yyyy")}</p>
                 </Grid>
             <Grid item xs={8}>
-                <p>Impact: {ticket.impact}</p>
-                <p>Confidence: {ticket.confidence}</p>
-                <p>Effort: {ticket.effort}</p>
-                <p>ICE Score: {ticket.ICE_Score}</p>
-                <p>Priority: {ticket.priorityValue}</p> 
-                <p>Feedback: {ticket.feedback}</p>
+                    <p>Impact: {ticket.impact}</p>
+                    <p>Confidence: {ticket.confidence}</p>
+                    <p>Effort: {ticket.effort}</p>
+                    <p>
+                    ICE Score:
+                        {iceScoreCalculation(
+                            ticket.impact,
+                            ticket.confidence,
+                            ticket.effort
+                        )}
+                    </p>
+                    <p>Priority: {ticket.priorityValue}</p> 
                 </Grid>
                 </Grid>
-
+        
             <Box>
                 <Button onClick={() => navigate(`/mytickets/update/${_id}`, { state: ticket })}>Edit</Button>
                 <Button onClick={handleDelete}>Delete</Button>
             </Box>
+
+            <Typography>Feedback:</Typography>
+             {/* {/* {user.role === "manager" ? ( */}
+            <Paper>
+                <textarea
+                    type="text"
+                    name="feedback"
+                    value={feedbackState.feedback}
+                    onChange={handleChange}
+                ></textarea>
+            </Paper>
+
             </Paper>
         </div>
     );

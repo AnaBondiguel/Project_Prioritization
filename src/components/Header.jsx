@@ -4,12 +4,15 @@ import { Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../utils/StateContext";
 import { logout } from "../services/authServices";
+import { getAllTickets } from "../services/ticketServices";
+
 
 
 
 const Header = () => {
     let initialData = {
         userInput: "",
+      
       };
     
       const [data, setData] = useState(initialData);
@@ -17,6 +20,9 @@ const Header = () => {
       let navigate = useNavigate();
       const {store, dispatch} = useGlobalState();
       const {loggedInUser} = store;
+      const user = JSON.parse(loggedInUser);
+
+
     //setup a function to handle logout. We set login user in the token back to null when they log out.
       function handleLogout(event) {
         event.preventDefault();
@@ -36,24 +42,35 @@ const Header = () => {
         });
       }
 
+      function handleSubmit(event){
+        if (event.key === "Enter") {
+        const filteredTickets = getFilteredTickets()
+        console.log("filterticket", filteredTickets)
+        dispatch({type: "setFilteredTickets", data: filteredTickets})
+        navigate('/searchresults');
+        }
+      }
+
+    function getFilteredTickets() {
+      if(!data.userInput) {
+          return data.tickets;
+      }
+      let filteredTickets = data.tickets.filter((ticket) => {
+        console.log(ticket)
+        if(ticket.initialtive.includes(data.userInput) || ticket.description.includes(data.userInput) )
+           return ticket
+          // return ticket.includes(data.userInput);
+      });
+      return filteredTickets;
+    }
     //fetch ticket from http://localhost:3000/listings
       useEffect(
         () => {
           function fetchTickets() {
-            const url = "http://localhost:3000/listings"; 
-            fetch(url)
-              .then((result) => {
-                return result.json();
-              })
-              console.log(result)
-              .then((data) => {
-                const tickets = data.results // array
-                  .map((ticket) => ({
-                    initiative: ticket.initialtive,
-                    // description: ticket.description,
-                    target: ticket.target,
-                    ICE_Score: ticket.ICE_Score,
-                  }));
+           getAllTickets()
+              .then((tickets) => {
+                console.log("insearch", tickets)
+                 
                 setData({
                   ...data,
                   tickets: tickets,
@@ -80,14 +97,14 @@ const Header = () => {
           </Grid>
           <Grid item xs={6}>
             <label>Search: </label>
-            <input type="text" onChange={handleOnChange}></input>
+            <input type="text" onChange={handleOnChange} onKeyUp={handleSubmit}></input>
           </Grid>
           <Grid item xs>
             {loggedInUser ? (
               <>
                 <Grid container spacing={1}>
                   <Grid item xs={4}>
-                    <Typography m={2}>Hello, {loggedInUser.email}</Typography>
+                    <Typography m={2}>Hello, {user.email}</Typography>
                   </Grid>
                   <Grid item xs={4}>
                     <Button variant="contained" onClick={handleLogout}>

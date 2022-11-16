@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
 import { useGlobalState } from "../utils/StateContext";
-import { getTickets, getAllTickets } from "../services/ticketServices";
-import DeleteIcon from '@mui/icons-material/Delete';
-// import { handleDelete } from "./TicketDetails";
+import {  getAllTickets } from "../services/ticketServices";
+import TicketTable from "./TicketTable";
 
 
 
@@ -24,6 +22,7 @@ function Listings(){
       if(!tickets){
         getAllTickets() 
         .then(tickets => {
+          console.log("ticket listing", tickets)
           // console.log("tickets inside:", tickets)
           dispatch ({type: "setTickets", data: tickets})
         })
@@ -40,40 +39,9 @@ function Listings(){
               <>
               <Typography variant="h4" align="left">All Submitted Tickets</Typography>
               
-              <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">Priority</TableCell>
-            <TableCell align="left">Initiative</TableCell>
-            <TableCell align="left">Target</TableCell>
-            <TableCell align="left">ICE Score</TableCell>
-          </TableRow>
-        </TableHead>
-            
-        <TableBody>
-              {tickets.map((ticket, index) => {
-                return (
-                    <TableRow
-                    key={ticket.initialtive}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                        <TableCell align="left">{ticket.priority} </TableCell>
-
-                    <Link key={ticket._id} to={`/mytickets/${ticket._id}`}>
-                        <TableCell align="right">{ticket.initialtive} </TableCell>
-                    </Link>
-
-                        <TableCell align="left">{ticket.target} </TableCell>
-                        <TableCell align="left"> {ticket.ICE_Score}</TableCell>
-                    
-                    </TableRow>
-                );
-                }
-                )}
-        </TableBody>
-      </Table>
-    </TableContainer> 
+             <TicketTable
+             tickets={tickets}
+             />
              
               </>
             ) : (

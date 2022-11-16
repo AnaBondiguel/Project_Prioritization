@@ -14,7 +14,7 @@ import Header from "./Header";
 import { StateContext } from "../utils/StateContext"
 import reducer from "../utils/StateReducer";
 import { getTickets } from "../services/ticketServices";
-import { getTargets, getImpacts, getConfidences, getEfforts, dueDate} from "../services/selectionServices";
+import { getTargets, getImpacts, getConfidences, getEfforts} from "../services/selectionServices";
 
 
 const sections = [
@@ -39,6 +39,7 @@ function App() {
     tickets: null,
     loggedInUser: sessionStorage.getItem("user") || null,
     auth: sessionStorage.getItem("token") || null,
+    filterTickets: [],
   };
   const [store, dispatch] = useReducer(reducer, initialState);
   const { loggedInUser} = store;
@@ -77,12 +78,6 @@ function App() {
         dispatch({ type: "setEfforts", data: efforts })
       )
       .catch((error) => console.log(error));
-
-      // dueDate()
-      // .then((dueDate) =>
-      //   dispatch({ type: "setdueDate", data: dueDate })
-      // )
-      // .catch((error) => console.log(error));
 
 
   }, [loggedInUser]);
