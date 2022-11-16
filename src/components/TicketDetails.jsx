@@ -1,29 +1,17 @@
 import { useEffect, useState } from "react";
-import { Box, Button,Typography, Paper, Grid } from "@mui/material";
+import { Box, Button, Paper, Grid } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteTicket, getTicket, updateTicket } from "../services/ticketServices";
+import { deleteTicket, getTicket} from "../services/ticketServices";
 import { useGlobalState } from "../utils/StateContext";
 import dateFormat from "dateformat";
 import iceScoreCalculation from "./ICE_Score";
 
 const TicketDetails = () => {
-    const initialFeedbackState = {
-       feedback: "",
-      };
-    const [feedbackState, setFeedbackState] = useState(initialFeedbackState);
 
     const [ticket, setTicket] = useState(null);
     let navigate = useNavigate();
     const { _id } = useParams();
     const { dispatch } = useGlobalState();
-    
-    function handleChange(event) {
-        // console.log("Event is: " + JSON.stringify(event))
-        setFeedbackState({
-          ...feedbackState,
-          [event.target.name]: event.target.value,
-        });
-      }
 
 //setup onClick for delete button 
     function handleDelete() {
