@@ -13,9 +13,6 @@ import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { v4 as uuidv4 } from 'uuid';
-// import DatePicker from 'react-datepicker';
-// import "react-datepicker/dist/react-datepicker.css";
-
 
 /**
  * TicketForm is also used for the edit page
@@ -62,8 +59,7 @@ function TicketForm(props) {
   const { dispatch, store } = useGlobalState();
   const { targets, impacts, confidences, efforts } = store;
   const [dateValue, setDateValue] = React.useState(null); //for date picker
-  // const [selectedDate, setSelectedDate] = React.useState(null);
-
+ 
   let { _id } = useParams();
   let navigate = useNavigate();
 
@@ -168,7 +164,7 @@ function TicketForm(props) {
               ))}
             </NativeSelect>
 
-<br></br> <br></br>
+            <br></br> <br></br>
           <Typography>Due Date</Typography>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                <DatePicker
@@ -244,7 +240,7 @@ function TicketForm(props) {
         </Grid>
       </Grid>
       <br></br> <br></br> {/** search for mui spacer components */}
-      {/* If id is in the url, that means we update the ticket. If id is not in the url, that means we create a new ticket. */}
+     
       <Grid container spacing={1}>
         <Grid item xs={1}>
           <Button variant="contained" color="warning" onClick={handleClick({ isSubmitted: false, _id: _id })}>

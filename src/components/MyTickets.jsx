@@ -57,16 +57,13 @@ function MyTickets() {
     if (!loggedInUser) {
       return;
     }
-
     // console.log("tickets at top:", tickets) && refreshed
-    // if (!tickets ) {
       getTickets()
         .then((tickets) => {
           // console.log("tickets inside:", tickets)
           dispatch({ type: "setTickets", data: tickets });
         })
         .catch((error) => console.log(error));
-    // }
   }, [dispatch, loggedInUser]);
 
   const ticketsView =

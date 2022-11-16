@@ -1,11 +1,5 @@
 export default function reducer (state, action) {
     switch(action.type) {
-        // case 'setdueDate':{
-        //     return {
-        //         ...state,
-        //         dueDate: action.data
-        //     }
-        // }
         case 'setFilteredTickets': {
             return {
                 ...state,
@@ -60,7 +54,7 @@ export default function reducer (state, action) {
         case 'updateTicket': {
             console.log(action.data)
             console.log(state.tickets)
-            const ticket = state.tickets.find((ticket) => ticket._id == action.data.id)
+            const ticket = state.tickets.find((ticket) => ticket._id === action.data.id)
             console.log(ticket)
             console.log(action.data)
             const updatedTicket = Object.assign(ticket, action.data)       
@@ -71,7 +65,6 @@ export default function reducer (state, action) {
                 tickets: [updatedTicket, ...otherTickets]
             }
         }
-
         case 'setLoggedInUser': {
             return {
                 ...state,
@@ -88,7 +81,5 @@ export default function reducer (state, action) {
             }
         }
         default: return state
-
     }
-
 }

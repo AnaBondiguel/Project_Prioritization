@@ -80,16 +80,6 @@ const TicketDetails = () => {
                 <Button onClick={handleDelete}>Delete</Button>
             </Box>
 
-            <Typography>Feedback:</Typography>
-             {/* {/* {user.role === "manager" ? ( */}
-            <Paper>
-                <textarea
-                    type="text"
-                    name="feedback"
-                    value={feedbackState.feedback}
-                    onChange={handleChange}
-                ></textarea>
-            </Paper>
 
             </Paper>
         </div>

@@ -83,21 +83,3 @@ const priorityValue = [
 return priorityValue;
 }
 
-// export async function dueDate(){
-//     const dueDate = [
-//         {name: "January"},
-//         {name: "February"},
-//         {name: "March"},
-//         {name: "April"},
-//         {name: "May"},
-//         {name: "June"},
-//         {name: "July"},
-//         {name: "August"},
-//         {name: "September"},
-//         {name: "Octorber"},
-//         {name: "November"},
-//         {name: "December"}
-//     ];
-    
-//     return dueDate;
-    // }

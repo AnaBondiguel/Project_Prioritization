@@ -6,9 +6,6 @@ import { useGlobalState } from "../utils/StateContext";
 import { logout } from "../services/authServices";
 import { getAllTickets } from "../services/ticketServices";
 
-
-
-
 const Header = () => {
     let initialData = {
         userInput: "",
@@ -16,7 +13,6 @@ const Header = () => {
       };
     
       const [data, setData] = useState(initialData);
-
       let navigate = useNavigate();
       const {store, dispatch} = useGlobalState();
       const {loggedInUser} = store;
@@ -42,35 +38,37 @@ const Header = () => {
         });
       }
 
+      //setup onKeyUp to search for all the submitted tickets
       function handleSubmit(event){
         if (event.key === "Enter") {
         const filteredTickets = getFilteredTickets()
         console.log("filterticket", filteredTickets)
         dispatch({type: "setFilteredTickets", data: filteredTickets})
+        //Once we found the tickets, we'll see the tickets on the search results page
         navigate('/searchresults');
         }
       }
 
-    function getFilteredTickets() {
-      if(!data.userInput) {
-          return data.tickets;
+      //set up a function to filter the tickets. If the ticket initiative, target, and ICE_Score are included in the user input, it will return the ticket.
+      function getFilteredTickets() {
+        if(!data.userInput) {
+            return data.tickets;
+        }
+        let filteredTickets = data.tickets.filter((ticket) => {
+          console.log(ticket)
+        if(ticket.initialtive.includes(data.userInput) || ticket.target.includes(data.userInput))
+            return ticket
+        });
+        return filteredTickets;
       }
-      let filteredTickets = data.tickets.filter((ticket) => {
-        console.log(ticket)
-        if(ticket.initialtive.includes(data.userInput) || ticket.description.includes(data.userInput) )
-           return ticket
-          // return ticket.includes(data.userInput);
-      });
-      return filteredTickets;
-    }
-    //fetch ticket from http://localhost:3000/listings
+
+    //fetch ticket from all the submitted listing tickets
       useEffect(
         () => {
           function fetchTickets() {
            getAllTickets()
               .then((tickets) => {
                 console.log("insearch", tickets)
-                 
                 setData({
                   ...data,
                   tickets: tickets,
