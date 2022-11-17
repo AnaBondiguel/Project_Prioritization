@@ -9,7 +9,6 @@ import { getAllTickets } from "../services/ticketServices";
 const Header = () => {
     let initialData = {
         userInput: "",
-      
       };
     
       const [data, setData] = useState(initialData);
@@ -55,8 +54,7 @@ const Header = () => {
             return data.tickets;
         }
         let filteredTickets = data.tickets.filter((ticket) => {
-          console.log(ticket)
-        if(ticket.initialtive.includes(data.userInput) || ticket.target.includes(data.userInput))
+        if(ticket.initialtive.includes(data.userInput) || ticket.target.includes(data.userInput)) 
             return ticket
         });
         return filteredTickets;
